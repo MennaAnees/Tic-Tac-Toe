@@ -4,8 +4,8 @@
  * and open the template in the editor.
  */
 package tictactoe;
-
 import javafx.application.Application;
+import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -13,13 +13,13 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author menna
+ * @author omran
  */
 public class TicTacToe extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/views/FXMLDocument.fxml"));
         
         Scene scene = new Scene(root);
         
