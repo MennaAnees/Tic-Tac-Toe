@@ -44,15 +44,15 @@ public class MainGame extends GridPane {
         rowConstraints1 = new RowConstraints();
         rowConstraints2 = new RowConstraints();
         rowConstraints3 = new RowConstraints();
-        button = new BoardCell();
-        button0 = new BoardCell();
-        button1 = new BoardCell();
-        button2 = new BoardCell();
-        button3 = new BoardCell();
-        button4 = new BoardCell();
-        button5 = new BoardCell();
-        button6 = new BoardCell();
-        button7 = new BoardCell();
+        button = new BoardCell(0,0);
+        button0 = new BoardCell(0,1);
+        button1 = new BoardCell(0,2);
+        button2 = new BoardCell(1,0);
+        button3 = new BoardCell(1,1);
+        button4 = new BoardCell(1,2);
+        button5 = new BoardCell(2,0);
+        button6 = new BoardCell(2,1);
+        button7 = new BoardCell(2,2);
         label = new Label();
         label0 = new Label();
 
