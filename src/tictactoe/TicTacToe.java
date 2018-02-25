@@ -10,16 +10,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import views.MainGame;
 
 /**
  *
  * @author omran
  */
 public class TicTacToe extends Application {
-    
+
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/views/FXMLDocument.fxml"));
+        MainGame root = new MainGame();
         
         Scene scene = new Scene(root);
         
@@ -33,5 +34,4 @@ public class TicTacToe extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
 }
