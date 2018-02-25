@@ -9,12 +9,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@user_info.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Pane prefHeight="323.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
          <children>
-            <JFXTextField alignment="CENTER" layoutX="147.0" layoutY="194.0" prefHeight="79.0" prefWidth="309.0" promptText="Enter your name">
+            <JFXTextField id="name_text_field" alignment="CENTER" layoutX="147.0" layoutY="194.0" prefHeight="79.0" prefWidth="309.0" promptText="Enter your name">
                <font>
                   <Font size="33.0" />
                </font>
@@ -29,7 +28,7 @@
                   <Font name="System Bold" size="33.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" layoutX="188.0" layoutY="110.0" opacity="0.5" text="×" textAlignment="CENTER">
+            <Label id="player_token" alignment="CENTER" layoutX="188.0" layoutY="110.0" opacity="0.5" text="×" textAlignment="CENTER">
                <font>
                   <Font size="76.0" />
                </font>
@@ -43,7 +42,7 @@
                   <Insets left="10.0" right="10.0" />
                </padding>
                <children>
-                  <JFXButton layoutX="70.0" layoutY="21.0" prefHeight="48.0" prefWidth="161.0" text="Cancel">
+                  <JFXButton id="cancel" layoutX="70.0" layoutY="21.0" prefHeight="48.0" prefWidth="161.0" text="Cancel">
                      <font>
                         <Font size="25.0" />
                      </font>
@@ -52,7 +51,7 @@
             </Pane>
             <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                <children>
-                  <JFXButton layoutX="70.0" layoutY="21.0" prefHeight="48.0" prefWidth="161.0" text="Next">
+                  <JFXButton id="next" layoutX="70.0" layoutY="21.0" prefHeight="48.0" prefWidth="161.0" text="Next">
                      <font>
                         <Font size="25.0" />
                      </font>
