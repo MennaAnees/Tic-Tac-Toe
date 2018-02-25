@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@user_info.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane prefHeight="323.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
+         <children>
+            <JFXTextField alignment="CENTER" layoutX="147.0" layoutY="194.0" prefHeight="79.0" prefWidth="309.0" promptText="Enter your name">
+               <font>
+                  <Font size="33.0" />
+               </font>
+            </JFXTextField>
+            <Label alignment="CENTER" layoutX="261.0" layoutY="127.0" opacity="0.5" prefHeight="58.0" prefWidth="161.0" text="Player 1" textAlignment="CENTER">
+               <font>
+                  <Font size="33.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="158.0" layoutY="39.0" prefHeight="68.0" prefWidth="286.0" text="Tic Tac Toe">
+               <font>
+                  <Font name="System Bold" size="33.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="188.0" layoutY="110.0" opacity="0.5" text="×" textAlignment="CENTER">
+               <font>
+                  <Font size="76.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+               <padding>
+                  <Insets left="10.0" right="10.0" />
+               </padding>
+               <children>
+                  <JFXButton layoutX="70.0" layoutY="21.0" prefHeight="48.0" prefWidth="161.0" text="Cancel">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </Pane>
+            <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <JFXButton layoutX="70.0" layoutY="21.0" prefHeight="48.0" prefWidth="161.0" text="Next">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </Pane>
+         </children>
+      </HBox>
+   </children>
+</VBox>
