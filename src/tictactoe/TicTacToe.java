@@ -5,10 +5,14 @@
  */
 package tictactoe;
 
+import javafx.scene.input.MouseEvent;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 
 /**
@@ -16,14 +20,25 @@ import javafx.stage.Stage;
  * @author menna
  */
 public class TicTacToe extends Application {
+    Parent entryRoot;
+    Scene entryScene;
+
+    Parent networkRoot;
+    Scene networkScene;
     
+
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+//        Parent entryRoot = FXMLLoader.load(getClass().getResource("Entry.fxml"));
+        Parent entryRoot = new EntryBase();
+        Scene entryScene = new Scene(entryRoot);
+
+//        Parent networkRoot = FXMLLoader.load(getClass().getResource("test.fxml"));
         
-        Scene scene = new Scene(root);
         
-        stage.setScene(scene);
+       
+
+        stage.setScene(entryScene);
         stage.show();
     }
 
@@ -33,5 +48,5 @@ public class TicTacToe extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
+
 }
