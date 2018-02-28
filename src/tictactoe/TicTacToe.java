@@ -34,13 +34,13 @@ public class TicTacToe extends Application {
         
         Scene[] sceneArr = {new Scene(entryRoot), new Scene(userRoot), new Scene(mainRoot)};
 
-        stage.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                  System.out.println("hi");
-                  stage.setScene(sceneArr[counter++%3]);
-            }
-        });      
+//        stage.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent event) {
+//                  System.out.println("hi");
+//                  stage.setScene(sceneArr[counter++%3]);
+//            }
+//        });      
         stage.setScene(sceneArr[0]);
         stage.show();
     }

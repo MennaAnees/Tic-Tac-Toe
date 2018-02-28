@@ -75,6 +75,10 @@ public class EntryBase extends Pane {
         button0.setOnAction(e -> {
             s.setScene(new Scene(new UserInfoBase(s)));
         });
+        button0.setOnAction(e -> {
+            model.GameData.mode = 1;
+            s.setScene(new Scene(new UserInfoBase(s)));
+        });
         
         button1.setLayoutX(191.0);
         button1.setLayoutY(150.0);

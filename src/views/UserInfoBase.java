@@ -1,6 +1,9 @@
 package views;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -9,6 +12,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import model.Player;
+import model.GameData;
 
 public class UserInfoBase extends VBox {
 
@@ -22,6 +27,8 @@ public class UserInfoBase extends VBox {
     protected final Button button;
     protected final Pane pane1;
     protected final Button button0;
+    protected boolean player2Flag = true;
+
 
     public UserInfoBase(Stage s) {
 
@@ -114,6 +121,23 @@ public class UserInfoBase extends VBox {
         button0.setPrefWidth(137.0);
         button0.setText("Next");
         button0.setFont(new Font(25.0));
+        button0.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                GameData.player1 = new Player(textField.getText());
+                textField.setText("");
+                if (player2Flag && GameData.mode == 1) {
+                    label1.setText("O");
+                    GameData.player2 = new Player(textField.getText());
+                    player2Flag = false;
+                }
+                else{
+                    s.setScene(new Scene(new MainGame(s)));
+                }
+            }
+        });
+        
+        
 
         pane.getChildren().add(label);
         pane.getChildren().add(label0);
