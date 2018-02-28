@@ -26,18 +26,19 @@ public class TicTacToe extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+
         Parent root = new FXMLDocumentBase();
         Parent userRoot = new views.UserInfoBase();
 
 //        Scene scene = new Scene(root);
 //        Scene netScene = new Scene(netRoot);
-        Scene[] sceneArr = {new Scene(userRoot), new Scene(root)};
+        Scene[] sceneArr = {new Scene(userRoot), new Scene(root), new MainGame()};
 
         stage.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                   System.out.println("hi");
-                  stage.setScene(sceneArr[counter++%2]);
+                  stage.setScene(sceneArr[counter++%3]);
             }
         });      
         stage.setScene(sceneArr[0]);

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tictactoe;
+package views;
 import java.util.ArrayList;
 import javafx.scene.control.Button;
 

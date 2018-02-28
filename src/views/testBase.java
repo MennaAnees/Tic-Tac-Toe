@@ -1,4 +1,5 @@
-package tictactoe;
+package views;
+
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -7,7 +8,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
 
-public class MainGame extends GridPane {
+public class testBase extends GridPane {
 
     protected final ColumnConstraints columnConstraints;
     protected final ColumnConstraints columnConstraints0;
@@ -19,20 +20,20 @@ public class MainGame extends GridPane {
     protected final RowConstraints rowConstraints1;
     protected final RowConstraints rowConstraints2;
     protected final RowConstraints rowConstraints3;
-    protected final BoardCell button;
-    protected final BoardCell button0;
-    protected final BoardCell button1;
-    protected final BoardCell button2;
-    protected final BoardCell button3;
-    protected final BoardCell button4;
-    protected final BoardCell button5;
-    protected final BoardCell button6;
-    protected final BoardCell button7;
+    protected final Button button;
+    protected final Button button0;
+    protected final Button button1;
+    protected final Button button2;
+    protected final Button button3;
+    protected final Button button4;
+    protected final Button button5;
+    protected final Button button6;
+    protected final Button button7;
     protected final Label label;
     protected final Label label0;
 
-    public MainGame() {
-        
+    public testBase() {
+
         columnConstraints = new ColumnConstraints();
         columnConstraints0 = new ColumnConstraints();
         columnConstraints1 = new ColumnConstraints();
@@ -43,15 +44,15 @@ public class MainGame extends GridPane {
         rowConstraints1 = new RowConstraints();
         rowConstraints2 = new RowConstraints();
         rowConstraints3 = new RowConstraints();
-        button = new BoardCell(0,0);
-        button0 = new BoardCell(0,1);
-        button1 = new BoardCell(0,2);
-        button2 = new BoardCell(1,0);
-        button3 = new BoardCell(1,1);
-        button4 = new BoardCell(1,2);
-        button5 = new BoardCell(2,0);
-        button6 = new BoardCell(2,1);
-        button7 = new BoardCell(2,2);
+        button = new Button();
+        button0 = new Button();
+        button1 = new Button();
+        button2 = new Button();
+        button3 = new Button();
+        button4 = new Button();
+        button5 = new Button();
+        button6 = new Button();
+        button7 = new Button();
         label = new Label();
         label0 = new Label();
 
@@ -116,7 +117,7 @@ public class MainGame extends GridPane {
         button.setPrefHeight(120.0);
         button.setPrefWidth(200.0);
         button.setStyle("-fx-background-color: #14BDAC;");
-        //button.setText("X");
+        button.setText("X");
         button.setFont(new Font(96.0));
         button.setPadding(new Insets(-10.0, 0.0, 0.0, 0.0));
         GridPane.setMargin(button, new Insets(0.0, 5.0, 5.0, 0.0));
@@ -127,7 +128,7 @@ public class MainGame extends GridPane {
         button0.setPrefHeight(120.0);
         button0.setPrefWidth(200.0);
         button0.setStyle("-fx-background-color: #14BDAC;");
-        //button0.setText("X");
+        button0.setText("X");
         button0.setFont(new Font(96.0));
         button0.setPadding(new Insets(-10.0, 0.0, 0.0, 0.0));
         GridPane.setMargin(button0, new Insets(5.0, 5.0, 5.0, 0.0));
@@ -138,7 +139,7 @@ public class MainGame extends GridPane {
         button1.setPrefHeight(120.0);
         button1.setPrefWidth(200.0);
         button1.setStyle("-fx-background-color: #14BDAC;");
-        //button1.setText("X");
+        button1.setText("X");
         button1.setFont(new Font(96.0));
         button1.setPadding(new Insets(-10.0, 0.0, 0.0, 0.0));
         GridPane.setMargin(button1, new Insets(5.0, 5.0, 0.0, 0.0));
@@ -149,7 +150,7 @@ public class MainGame extends GridPane {
         button2.setPrefHeight(120.0);
         button2.setPrefWidth(200.0);
         button2.setStyle("-fx-background-color: #14BDAC;");
-        //button2.setText("X");
+        button2.setText("X");
         button2.setFont(new Font(96.0));
         button2.setPadding(new Insets(-10.0, 0.0, 0.0, 0.0));
         GridPane.setMargin(button2, new Insets(0.0, 5.0, 5.0, 5.0));
@@ -160,7 +161,7 @@ public class MainGame extends GridPane {
         button3.setPrefHeight(120.0);
         button3.setPrefWidth(200.0);
         button3.setStyle("-fx-background-color: #14BDAC;");
-        //button3.setText("X");
+        button3.setText("X");
         button3.setFont(new Font(96.0));
         button3.setPadding(new Insets(-10.0, 0.0, 0.0, 0.0));
         GridPane.setMargin(button3, new Insets(5.0));
@@ -171,7 +172,7 @@ public class MainGame extends GridPane {
         button4.setPrefHeight(120.0);
         button4.setPrefWidth(200.0);
         button4.setStyle("-fx-background-color: #14BDAC;");
-        //button4.setText("X");
+        button4.setText("X");
         button4.setFont(new Font(96.0));
         button4.setPadding(new Insets(-10.0, 0.0, 0.0, 0.0));
         GridPane.setMargin(button4, new Insets(5.0, 5.0, 0.0, 5.0));
@@ -182,7 +183,7 @@ public class MainGame extends GridPane {
         button5.setPrefHeight(120.0);
         button5.setPrefWidth(200.0);
         button5.setStyle("-fx-background-color: #14BDAC;");
-        //button5.setText("X");
+        button5.setText("X");
         button5.setFont(new Font(96.0));
         button5.setPadding(new Insets(-10.0, 0.0, 0.0, 0.0));
         GridPane.setMargin(button5, new Insets(0.0, 0.0, 5.0, 5.0));
@@ -193,7 +194,7 @@ public class MainGame extends GridPane {
         button6.setPrefHeight(120.0);
         button6.setPrefWidth(200.0);
         button6.setStyle("-fx-background-color: #14BDAC;");
-        //button6.setText("X");
+        button6.setText("X");
         button6.setFont(new Font(96.0));
         button6.setPadding(new Insets(-10.0, 0.0, 0.0, 0.0));
         GridPane.setMargin(button6, new Insets(5.0, 0.0, 5.0, 5.0));
@@ -204,7 +205,7 @@ public class MainGame extends GridPane {
         button7.setPrefHeight(120.0);
         button7.setPrefWidth(200.0);
         button7.setStyle("-fx-background-color: #14BDAC;");
-        //button7.setText("X");
+        button7.setText("X");
         button7.setFont(new Font(96.0));
         button7.setPadding(new Insets(-10.0, 0.0, 0.0, 0.0));
         GridPane.setMargin(button7, new Insets(5.0, 0.0, 0.0, 5.0));
@@ -243,5 +244,6 @@ public class MainGame extends GridPane {
         getChildren().add(button7);
         getChildren().add(label);
         getChildren().add(label0);
+
     }
 }
