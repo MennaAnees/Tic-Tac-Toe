@@ -8,6 +8,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 public class UserInfoBase extends VBox {
 
@@ -22,7 +23,7 @@ public class UserInfoBase extends VBox {
     protected final Pane pane1;
     protected final Button button0;
 
-    public UserInfoBase() {
+    public UserInfoBase(Stage s) {
 
         pane = new Pane();
         label = new Label();
@@ -52,7 +53,7 @@ public class UserInfoBase extends VBox {
         label.setOpacity(0.5);
         label.setPrefHeight(58.0);
         label.setPrefWidth(161.0);
-        label.setText("Player 1");
+        label.setText("Name");
         label.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         label.setFont(new Font(33.0));
 

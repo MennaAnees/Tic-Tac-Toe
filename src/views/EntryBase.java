@@ -16,25 +16,26 @@ public class EntryBase extends Pane {
     protected final Button button;
     protected final Button button0;
     protected final Button button1;
-    protected final Stage stage;
+//    protected final Stage stage;
 
 
-    public EntryBase() {
-
+    public EntryBase(Stage s) {
+        
         label = new Label();
         button = new Button();
         button0 = new Button();
         button1 = new Button();
-        stage = new Stage(); 
-        button.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                 Parent testRoot = new testBase();
-                 Scene networkScene = new Scene(testRoot);
-                 stage.setScene(networkScene);
-                 stage.show();
-            }
-        });
+        
+//        stage = new Stage();
+//        button.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent e) {
+//                 Parent testRoot = new testBase();
+//                 Scene networkScene = new Scene(testRoot);
+//                 stage.setScene(networkScene);
+//                 stage.show();
+//            }
+//        });
 //        
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -60,6 +61,9 @@ public class EntryBase extends Pane {
         button.setPrefWidth(206.0);
         button.setText("Play Online");
         button.setFont(new Font(24.0));
+        button.setOnAction(e -> {
+            s.setScene(new Scene(new UserInfoBase(s)));
+        });
 
         button0.setLayoutX(190.0);
         button0.setLayoutY(228.0);
@@ -68,7 +72,10 @@ public class EntryBase extends Pane {
         button0.setPrefWidth(206.0);
         button0.setText("2 Players ");
         button0.setFont(new Font(24.0));
-
+        button0.setOnAction(e -> {
+            s.setScene(new Scene(new UserInfoBase(s)));
+        });
+        
         button1.setLayoutX(191.0);
         button1.setLayoutY(150.0);
         button1.setMnemonicParsing(false);
@@ -77,7 +84,12 @@ public class EntryBase extends Pane {
         button1.setText("Single mode");
         button1.setTextFill(javafx.scene.paint.Color.valueOf("#111111"));
         button1.setFont(new Font(24.0));
-
+        button1.setOnAction(e -> {
+            model.GameData.mode = 0;
+            s.setScene(new Scene(new UserInfoBase(s)));
+        });
+        
+        
         getChildren().add(label);
         getChildren().add(button);
         getChildren().add(button0);

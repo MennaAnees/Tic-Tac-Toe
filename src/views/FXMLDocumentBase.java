@@ -4,6 +4,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 public class FXMLDocumentBase extends Pane {
 
@@ -12,7 +13,7 @@ public class FXMLDocumentBase extends Pane {
     protected final Button button0;
     protected final Button button1;
 
-    public FXMLDocumentBase() {
+    public FXMLDocumentBase(Stage s) {
 
         label = new Label();
         button = new Button();

@@ -7,6 +7,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 public class MainGame extends GridPane {
 
@@ -32,7 +33,7 @@ public class MainGame extends GridPane {
     protected final Label label;
     protected final Label label0;
 
-    public MainGame() {
+    public MainGame(Stage s) {
         
         columnConstraints = new ColumnConstraints();
         columnConstraints0 = new ColumnConstraints();
