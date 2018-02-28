@@ -5,10 +5,14 @@
  */
 package tictactoe;
 
+import javafx.scene.input.MouseEvent;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 import javafx.scene.input.*;
 import javafx.event.*;
@@ -46,5 +50,5 @@ public class TicTacToe extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
+
 }
