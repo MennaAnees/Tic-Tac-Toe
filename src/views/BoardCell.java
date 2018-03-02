@@ -5,6 +5,7 @@
  */
 package views;
 import java.util.ArrayList;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 
 /**
@@ -36,8 +37,13 @@ public class BoardCell extends Button{
 
                 }
                 moveCounter++;
-                if (whoWin() != null) {
+                String winner = whoWin();
+                if (winner != null) {
                     System.out.println(whoWin());
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Winner");
+                    alert.setHeaderText(winner + " wins");
+                    alert.showAndWait();
                 }
             }
         });

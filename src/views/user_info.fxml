@@ -13,7 +13,7 @@
    <children>
       <Pane prefHeight="323.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
          <children>
-            <Label alignment="CENTER" layoutX="261.0" layoutY="127.0" opacity="0.5" prefHeight="58.0" prefWidth="161.0" text="Player 1" textAlignment="CENTER">
+            <Label alignment="CENTER" layoutX="220.0" layoutY="127.0" opacity="0.5" prefHeight="58.0" prefWidth="161.0" text="Player 1" textAlignment="CENTER">
                <font>
                   <Font size="33.0" />
                </font>
@@ -21,11 +21,6 @@
             <Label alignment="CENTER" layoutX="158.0" layoutY="39.0" prefHeight="68.0" prefWidth="286.0" text="Tic Tac Toe">
                <font>
                   <Font name="System Bold" size="33.0" />
-               </font>
-            </Label>
-            <Label id="player_token" alignment="CENTER" layoutX="188.0" layoutY="110.0" opacity="0.5" text="×" textAlignment="CENTER">
-               <font>
-                  <Font size="76.0" />
                </font>
             </Label>
             <TextField id="name_textfield" alignment="CENTER" layoutX="134.0" layoutY="222.0" prefHeight="68.0" prefWidth="332.0" promptText="Enter your name">

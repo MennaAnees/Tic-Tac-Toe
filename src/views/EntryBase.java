@@ -41,18 +41,26 @@ public class EntryBase extends Pane {
         setMaxWidth(USE_PREF_SIZE);
         setMinHeight(USE_PREF_SIZE);
         setMinWidth(USE_PREF_SIZE);
-        setPrefHeight(475.0);
+        setPrefHeight(500.0);
         setPrefWidth(600.0);
-        setStyle("-fx-background-color: green;");
+        setStyle("-fx-background-color: #61DED2;");
 
-        label.setLayoutX(80.0);
-        label.setLayoutY(20.0);
-        label.setPrefHeight(70.0);
-        label.setPrefWidth(394.0);
-        label.setText("Tic Tac Toe..");
-        label.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
-        label.setTextFill(javafx.scene.paint.Color.valueOf("#effc05"));
-        label.setFont(new Font(57.0));
+//        label.setLayoutX(80.0);
+//        label.setLayoutY(20.0);
+//        label.setPrefHeight(70.0);
+//        label.setPrefWidth(394.0);
+//        label.setText("Tic Tac Toe..");
+//        label.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
+//        label.setTextFill(javafx.scene.paint.Color.valueOf("#effc05"));
+//        label.setFont(new Font(57.0));
+
+        label.setAlignment(javafx.geometry.Pos.CENTER);
+        label.setLayoutX(158.0);
+        label.setLayoutY(39.0);
+        label.setPrefHeight(68.0);
+        label.setPrefWidth(286.0);
+        label.setText("Tic Tac Toe");
+        label.setFont(new Font("System Bold", 33.0));
 
         button.setLayoutX(194.0);
         button.setLayoutY(311.0);

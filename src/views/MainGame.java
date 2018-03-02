@@ -215,13 +215,13 @@ public class MainGame extends GridPane {
         label.setAlignment(javafx.geometry.Pos.CENTER);
         label.setPrefHeight(83.0);
         label.setPrefWidth(207.0);
-        label.setText("Player1 : X");
+        label.setText(model.GameData.player1.name + ": X");
         label.setFont(new Font(29.0));
 
         GridPane.setColumnIndex(label0, 3);
         label0.setPrefHeight(83.0);
         label0.setPrefWidth(207.0);
-        label0.setText("Player2 : O");
+        label0.setText(model.GameData.player2.name + ": O");
         label0.setFont(new Font(29.0));
 
         getColumnConstraints().add(columnConstraints);

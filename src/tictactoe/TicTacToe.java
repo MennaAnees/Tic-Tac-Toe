@@ -26,22 +26,9 @@ public class TicTacToe extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-
-        stage.setResizable(false);
-        Parent userRoot = new views.UserInfoBase(stage);
-        Parent mainRoot = new views.MainGame(stage);
-        Parent entryRoot = new views.EntryBase(stage);
         
-        Scene[] sceneArr = {new Scene(entryRoot), new Scene(userRoot), new Scene(mainRoot)};
-
-//        stage.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-//            @Override
-//            public void handle(MouseEvent event) {
-//                  System.out.println("hi");
-//                  stage.setScene(sceneArr[counter++%3]);
-//            }
-//        });      
-        stage.setScene(sceneArr[0]);
+        stage.setResizable(false);   
+        stage.setScene(new Scene(new views.EntryBase(stage)));
         stage.show();
     }
 
