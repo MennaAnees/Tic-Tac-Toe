@@ -24,19 +24,11 @@ DROP TABLE IF EXISTS `saved_games`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `saved_games` (
   `GID` int(11) NOT NULL AUTO_INCREMENT,
-  `player_1` char(20) DEFAULT NULL,
-  `player_2` char(20) DEFAULT NULL,
+  `player_1` char(20) DEFAULT "player1",
+  `player_2` char(20) DEFAULT "player2",
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `winner` int(11) DEFAULT NULL,
-  `move_1` int(11) DEFAULT NULL,
-  `move_2` int(11) DEFAULT NULL,
-  `move_3` int(11) DEFAULT NULL,
-  `move_4` int(11) DEFAULT NULL,
-  `move_5` int(11) DEFAULT NULL,
-  `move_6` int(11) DEFAULT NULL,
-  `move_7` int(11) DEFAULT NULL,
-  `move_8` int(11) DEFAULT NULL,
-  `move_9` int(11) DEFAULT NULL,
+  `winner` char(20) DEFAULT NULL,
+  `moves` varchar(18) DEFAULT NULL,
   PRIMARY KEY (`GID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;

@@ -5,6 +5,8 @@
  */
 package models;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author omran
@@ -15,7 +17,11 @@ public class GameData {
     private static int moveCounter = 1;
     private static volatile int moveArray [][] = {{10,10,10},{10,10,10},{10,10,10}};
     private static boolean clickArray[][] = {{false,false,false},{false,false,false},{false,false,false}};
+    private static ArrayList<String> moves = new ArrayList<String>();
     
+    
+    public static ArrayList<String> getMoves(){return moves;}
+    public static void setMoves(String s){moves.add(s);}
     
     public static int getMode(){return mode;}
     public static void setMode(int m){mode = m;}
