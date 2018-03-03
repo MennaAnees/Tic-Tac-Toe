@@ -9,11 +9,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@user_info.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Pane prefHeight="323.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
          <children>
-            <Label alignment="CENTER" layoutX="220.0" layoutY="127.0" opacity="0.5" prefHeight="58.0" prefWidth="161.0" text="Player 1" textAlignment="CENTER">
+            <Label fx:id="playerLabel" alignment="CENTER" layoutX="261.0" layoutY="127.0" opacity="0.5" prefHeight="58.0" prefWidth="161.0" text="Player 1" textAlignment="CENTER">
                <font>
                   <Font size="33.0" />
                </font>
@@ -23,7 +23,12 @@
                   <Font name="System Bold" size="33.0" />
                </font>
             </Label>
-            <TextField id="name_textfield" alignment="CENTER" layoutX="134.0" layoutY="222.0" prefHeight="68.0" prefWidth="332.0" promptText="Enter your name">
+            <Label id="player_token" fx:id="playerSymbol" alignment="CENTER" layoutX="188.0" layoutY="110.0" opacity="0.5" text="×" textAlignment="CENTER">
+               <font>
+                  <Font size="76.0" />
+               </font>
+            </Label>
+            <TextField id="name_textfield" fx:id="playerName" alignment="CENTER" layoutX="134.0" layoutY="222.0" prefHeight="68.0" prefWidth="332.0" promptText="Enter your name">
                <font>
                   <Font size="30.0" />
                </font>
@@ -46,7 +51,7 @@
             </Pane>
             <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Button id="next" defaultButton="true" layoutX="82.0" layoutY="16.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="137.0" text="Next">
+                  <Button id="next" defaultButton="true" layoutX="82.0" layoutY="16.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="58.0" prefWidth="137.0" text="Next">
                      <font>
                         <Font size="25.0" />
                      </font>

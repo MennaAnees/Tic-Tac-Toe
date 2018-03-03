@@ -3,32 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tictactoe;
+package views;
 
-import javafx.scene.input.MouseEvent;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
-import javafx.scene.input.*;
-import javafx.event.*;
 
 /**
  *
- * @author menna
+ * @author omran
  */
 public class TicTacToe extends Application {
-    int counter = 0;
-
+    
     @Override
     public void start(Stage stage) throws Exception {
-        
-        stage.setResizable(false);   
-        stage.setScene(new Scene(new views.EntryBase(stage)));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Entry.fxml"));
+        loader.setController(new controllers.EntryController());
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
         stage.show();
     }
 
@@ -38,5 +33,5 @@ public class TicTacToe extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-
+    
 }
