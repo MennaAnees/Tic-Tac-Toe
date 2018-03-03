@@ -35,6 +35,7 @@ public class EntryController implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/user_info.fxml"));
         fxmlLoader.setController(new controllers.UserInfoController());
         Parent root = (Parent) fxmlLoader.load();
+
         if (node.getId().equals("single")) {
             GameData.setMode(1);
         }

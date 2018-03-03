@@ -19,6 +19,16 @@ public class GameData {
     private static boolean clickArray[][] = {{false,false,false},{false,false,false},{false,false,false}};
     private static ArrayList<String> moves = new ArrayList<String>();
     
+    public static void reset(){
+        moveCounter = 1;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                moveArray[i][j] = 10;
+                clickArray[i][j] = false;
+                moves.removeAll(moves);
+            }
+        }
+    }
     
     public static ArrayList<String> getMoves(){return moves;}
     public static void setMoves(String s){moves.add(s);}
