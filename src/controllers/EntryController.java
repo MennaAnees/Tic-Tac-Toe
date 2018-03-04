@@ -36,7 +36,7 @@ public class EntryController implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/user_info.fxml"));
         fxmlLoader.setController(new controllers.UserInfoController());
         Parent root = (Parent) fxmlLoader.load();
-
+        System.out.println(node.getId());
         if (node.getId().equals("single")) {
             GameData.setMode(1);
         }
@@ -45,6 +45,11 @@ public class EntryController implements Initializable {
         }
         else if (node.getId().equals("online")) {
             GameData.setMode(3);
+        }
+        else if (node.getId().equals("savedGames")) {
+            fxmlLoader = new FXMLLoader(getClass().getResource("/views/SavedGames.fxml"));
+            fxmlLoader.setController(new controllers.SavedGamesController());
+            root = (Parent) fxmlLoader.load();
         }
         scene.setRoot(root);
 
