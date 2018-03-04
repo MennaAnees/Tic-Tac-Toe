@@ -5,7 +5,6 @@
  */
 package controllers;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -21,13 +20,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import models.DataBaseMainupulation;
 import models.GameData;
+import models.Player;
 
 /**
  * FXML Controller class
@@ -48,7 +45,14 @@ public class WinnerController implements Initializable {
     private ImageView img;
     
     boolean saved = false;
+    Player winner;
 
+    public WinnerController(Player p) {
+        winner = p;
+    }
+
+    
+    
 
     /**
      * Initializes the controller class.
@@ -58,7 +62,12 @@ public class WinnerController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        label.setText(GameData.getCounter() % 2 == 0 ? GameData.player1.name : GameData.player2.name);
+        if (winner.name=="noWinner") {
+            label.setText("Draw!");
+            img.setImage(new Image ("/views/imgs/draw.png"));
+
+        }
+//        label.setText(winner.name);
     }    
 
 
