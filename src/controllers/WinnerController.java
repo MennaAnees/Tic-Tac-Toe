@@ -65,9 +65,10 @@ public class WinnerController implements Initializable {
         if (winner.name=="noWinner") {
             label.setText("Draw!");
             img.setImage(new Image ("/views/imgs/draw.png"));
-
         }
-//        label.setText(winner.name);
+        else{
+            label.setText(winner.name);
+        }
     }    
 
 

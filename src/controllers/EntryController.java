@@ -31,6 +31,7 @@ public class EntryController implements Initializable {
     private void handleButtonAction(ActionEvent event) throws IOException {
         Node node = (Node) event.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
+        stage.setResizable(false);
         Scene scene = stage.getScene();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/user_info.fxml"));
         fxmlLoader.setController(new controllers.UserInfoController());

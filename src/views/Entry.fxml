@@ -27,7 +27,7 @@
             <Font size="24.0" />
          </font>
       </Button>
-      <Button id="view" fx:id="online1" layoutX="191.0" layoutY="343.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="53.0" prefWidth="206.0" style="-fx-background-color: #14BDAC;;" text="View Saved">
+      <Button id="view" fx:id="savedGames" layoutX="191.0" layoutY="343.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="53.0" prefWidth="206.0" style="-fx-background-color: #14BDAC;;" text="View Saved">
          <font>
             <Font size="24.0" />
          </font>
