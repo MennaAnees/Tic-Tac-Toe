@@ -28,7 +28,7 @@
                   <Font size="76.0" />
                </font>
             </Label>
-            <TextField id="name_textfield" fx:id="playerName" alignment="CENTER" layoutX="134.0" layoutY="222.0" prefHeight="68.0" prefWidth="332.0" promptText="Enter your name">
+            <TextField id="name_textfield" fx:id="playerName" alignment="CENTER" layoutX="134.0" layoutY="222.0" onKeyReleased="#maxLengthHandeler" prefHeight="68.0" prefWidth="332.0" promptText="Enter your name">
                <font>
                   <Font size="30.0" />
                </font>

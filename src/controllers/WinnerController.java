@@ -21,6 +21,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -45,6 +46,9 @@ public class WinnerController implements Initializable {
     private ImageView save;
     @FXML
     private ImageView img;
+    
+    boolean saved = false;
+
 
     /**
      * Initializes the controller class.
@@ -57,13 +61,14 @@ public class WinnerController implements Initializable {
         label.setText(GameData.getCounter() % 2 == 0 ? GameData.player1.name : GameData.player2.name);
     }    
 
+
+    
     @FXML
     private void handleButtonAction(MouseEvent event) throws IOException, SQLException {
         Node node = (Node) event.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
         Scene scene = stage.getScene();
         String id = node.getId();
-
         if (id.equals("exit")) {
             System.exit(0);
         }
@@ -80,19 +85,18 @@ public class WinnerController implements Initializable {
             scene.setRoot(root);
 
         }
-        else if (id.equals("save")) {
+        else if (id.equals("save") && !saved) {
             String moves = String.join(":", GameData.getMoves());              
             DataBaseMainupulation db;
-            boolean saved = false;
             try {
                 db = new DataBaseMainupulation();
                 String winnername  = GameData.getCounter() % 2 == 0 ? GameData.player1.name : GameData.player2.name;
                 db.insert(GameData.player1.name, GameData.player2.name, moves, winnername);
                 db.closeConn();
-                if (!saved) {
-                    save.setImage(new Image ("/views/imgs/saveok.png"));
-                    saved = true;
-                }
+                save.setImage(new Image ("/views/imgs/saveok.png"));
+                saved = true;
+                System.out.println(saved);
+
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(LocalPlayersController.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {
