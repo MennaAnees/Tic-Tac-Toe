@@ -84,7 +84,9 @@ public class WinnerController implements Initializable {
         }
         else if (id.equals("tryAgain")) {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/MainGame.fxml"));
-            fxmlLoader.setController(new controllers.LocalPlayersController());
+           if(GameData.getMode()==1){fxmlLoader.setController(new controllers.SingleModeController());}
+           if(GameData.getMode()==2){fxmlLoader.setController(new controllers.LocalPlayersController());}
+            
             Parent root = (Parent) fxmlLoader.load();
             scene.setRoot(root);
         }

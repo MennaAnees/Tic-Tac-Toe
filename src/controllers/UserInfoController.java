@@ -72,6 +72,8 @@ protected boolean player2Flag = true;
         if(GameData.getMode() == 1) {
             GameData.player1 = new Player(playerName.getText());
             GameData.player2 = new Player("CPU");
+            fxmlLoader.setController(new controllers.SingleModeController());
+
             Parent root = (Parent) fxmlLoader.load();
             scene.setRoot(root);
 

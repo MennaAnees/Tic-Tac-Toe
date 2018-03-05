@@ -44,6 +44,11 @@ public class GameData {
     
     public static void setClickArray(int i, int j){clickArray[i][j] = true;}
     public static boolean isClicked(int i, int j){return clickArray[i][j];}
+    public static boolean[][] getClicked(){return clickArray;}
+    public static void reverseClicked(int i, int j){clickArray[i][j] = false;}
+    
+    
+    
     
     public static Player whoWin(){
         int sum1 = 0;
