@@ -25,13 +25,14 @@ import javafx.stage.Stage;
 import models.DataBaseMainupulation;
 import models.GameData;
 import models.Player;
+import models.SaveGame;
 
 /**
  * FXML Controller class
  *
  * @author omran
  */
-public class WinnerController implements Initializable {
+public class WinnerSavedController implements Initializable {
 
     @FXML
     private Label label;
@@ -45,10 +46,10 @@ public class WinnerController implements Initializable {
     private ImageView img;
     
     boolean saved = false;
-    Player winner;
+    SaveGame game;
 
-    public WinnerController(Player p) {
-        winner = p;
+    public WinnerSavedController(SaveGame sg) {
+        game = sg;
     }
 
     
@@ -62,12 +63,14 @@ public class WinnerController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        if (winner.name=="noWinner") {
+        save.setImage(new Image("/views/imgs/del.png"));
+
+        if (game.winner.equals("noWinner")) {
             label.setText("Draw!");
             img.setImage(new Image ("/views/imgs/draw.png"));
         }
         else{
-            label.setText(winner.name);
+            label.setText(game.winner);
         }
     }    
 
@@ -96,13 +99,13 @@ public class WinnerController implements Initializable {
 
         }
         else if (id.equals("save") && !saved) {
-            String moves = String.join(":", GameData.getMoves());              
             DataBaseMainupulation db;
             try {
                 db = new DataBaseMainupulation();
-                db.insert(GameData.player1.name, GameData.player2.name, moves, winner.name);
+                System.out.println(game.gId);
+                db.del(game.gId);
                 db.closeConn();
-                save.setImage(new Image ("/views/imgs/saveok.png"));
+                save.setImage(new Image ("/views/imgs/delok.png"));
                 saved = true;
                 System.out.println(saved);
 

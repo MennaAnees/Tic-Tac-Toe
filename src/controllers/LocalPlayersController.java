@@ -59,12 +59,6 @@ public class LocalPlayersController implements Initializable {
             GameData.setMoves(move);
             Player winner = GameData.whoWin();
 
-
-//            if (winner == null && GameData.getCounter()==8) {
-//                fxmlLoader.setController(new controllers.WinnerController(winner));
-//                Parent root = (Parent) fxmlLoader.load();
-//                scene.setRoot(root);
-//            }
             if (winner != null) {
                 fxmlLoader.setController(new controllers.WinnerController(winner));
                 Parent root = (Parent) fxmlLoader.load();

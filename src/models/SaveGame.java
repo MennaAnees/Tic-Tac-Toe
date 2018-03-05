@@ -8,19 +8,22 @@ package models;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
+import javafx.scene.control.Button;
 
 /**
  *
  * @author omran
  */
 public class SaveGame {
+    public int gId;
     public String player1;
     public String player2;
     public ArrayList<int []> moves = new ArrayList<int []>();
     public String winner;
     public Timestamp time;
 
-    public SaveGame(String p1, String p2, String m, String w, Timestamp t) {
+    public SaveGame(int id, String p1, String p2, String m, String w, Timestamp t) {
+        gId = id;
         player1 = p1;
         player2 = p2;
         winner = w;

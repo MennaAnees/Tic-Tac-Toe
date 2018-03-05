@@ -5,6 +5,7 @@
  */
 package controllers;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,14 +16,20 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import models.DataBaseMainupulation;
 import models.GameData;
 import models.SaveGame;
@@ -58,23 +65,19 @@ public class SavedGamesController implements Initializable {
         try {
             db = new DataBaseMainupulation();
             ResultSet rs = db.get();
-            System.out.println("ggggg");
-                
             while (rs.next()){
                 int id = rs.getInt("GID");
                 String player1 = rs.getString("player_1");
-                String player2 = rs.getString("player_1");
+                String player2 = rs.getString("player_2");
                 String moves = rs.getString("moves");
                 String winner = rs.getString("winner");
                 Timestamp timestamp = rs.getTimestamp("timestamp");
-                savedGamesArray.add(new SaveGame(player1, player2, moves, winner, timestamp));
+                savedGamesArray.add(new SaveGame(id, player1, player2, moves, winner, timestamp));
                 items.add(timestamp);
                 
         }
                 
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(LocalPlayersController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(LocalPlayersController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -86,12 +89,17 @@ public class SavedGamesController implements Initializable {
     }
 
     @FXML
-    private void handleMouseClick(MouseEvent event) {
+    private void handleMouseClick(MouseEvent event) throws IOException {
+      
         int index = list.getSelectionModel().getSelectedIndex();
-        System.out.println(savedGamesArray.get(index).player1);
-        System.out.println(savedGamesArray.get(index).player2);
-        System.out.println(Arrays.toString(savedGamesArray.get(index).moves.get(0)));
-        System.out.println(savedGamesArray.get(index).moves.size());
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        Scene scene = stage.getScene();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/MainGame.fxml"));
+        fxmlLoader.setController(new ReplyGameContoller(savedGamesArray.get(index), stage));
+        Parent root = (Parent) fxmlLoader.load();
+        scene.setRoot(root);
+
     }
     
 }
