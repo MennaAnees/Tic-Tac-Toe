@@ -96,7 +96,7 @@ public class SavedGamesController implements Initializable {
         Stage stage = (Stage) node.getScene().getWindow();
         Scene scene = stage.getScene();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/MainGame.fxml"));
-        fxmlLoader.setController(new ReplyGameContoller(savedGamesArray.get(index), stage));
+        fxmlLoader.setController(new ReplayGameContoller(savedGamesArray.get(index), stage));
         Parent root = (Parent) fxmlLoader.load();
         scene.setRoot(root);
 

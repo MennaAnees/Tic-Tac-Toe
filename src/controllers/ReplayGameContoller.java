@@ -31,7 +31,7 @@ import models.SaveGame;
  *
  * @author omran
  */
-public class ReplyGameContoller implements Initializable {
+public class ReplayGameContoller implements Initializable {
     
     private final SaveGame game;
     private Stage stage;
@@ -66,7 +66,7 @@ public class ReplyGameContoller implements Initializable {
 
     }
 
-    public ReplyGameContoller(SaveGame g, Stage s) {
+    public ReplayGameContoller(SaveGame g, Stage s) {
         game = g;
         stage = s;
     }
@@ -109,7 +109,7 @@ public class ReplyGameContoller implements Initializable {
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException ex) {
-                        Logger.getLogger(ReplyGameContoller.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(ReplayGameContoller.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
 
@@ -120,7 +120,7 @@ public class ReplyGameContoller implements Initializable {
                     root = (Parent) fxmlLoader.load();
                     scene.setRoot(root);
                 } catch (IOException ex) {
-                    Logger.getLogger(ReplyGameContoller.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ReplayGameContoller.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
             }
