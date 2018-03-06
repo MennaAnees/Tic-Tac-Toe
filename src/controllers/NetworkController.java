@@ -55,7 +55,7 @@ public class NetworkController implements Initializable {
     
     @FXML
     private void handleCreateAction(ActionEvent event) throws IOException {
-        GameData.server = new ServerSocket(5555);
+        GameData.server = new ServerSocket(65432);
         models.GameData.networkChoiceFlag = true;
         GameData.dgListener = new DatagramListener(true, new ArrayList<models.Peer>());
         Thread dgThread = new Thread(GameData.dgListener);
@@ -91,12 +91,12 @@ public class NetworkController implements Initializable {
 
             GameData.dgListener = new DatagramListener(false, servers);
             GameData.dgListener.start();
-//            GameData.dgClient = new DatagramClient(ips);
-            GameData.dgClient = new DatagramClient(new ArrayList<String>(Arrays.asList(
-                    "10.118.49.160",
-                    "10.118.49.27",
-                    "10.118.49.29")));
-            servers.add(new models.Peer("a", InetAddress.getByName("10.118.49.160")));
+            GameData.dgClient = new DatagramClient(ips);
+//            GameData.dgClient = new DatagramClient(new ArrayList<String>(Arrays.asList(
+//                    "10.118.49.160",
+//                    "10.118.49.27",
+//                    "10.118.49.29")));
+//            servers.add(new models.Peer("a", InetAddress.getByName("10.118.49.160")));
             ObservableList items = FXCollections.observableArrayList();
             for(models.Peer peer : servers) {
 //                System.out.println(peer.name + "hi here 1");
@@ -130,12 +130,12 @@ public class NetworkController implements Initializable {
             System.out.println(result.toString());
             result.ifPresent(choice -> {
                 try {
-                    GameData.client = new Socket(choice.toString().substring(choice.toString().lastIndexOf("@") + 1), 5555);
+                    GameData.client = new Socket(choice.toString().substring(choice.toString().lastIndexOf("@") + 1), 65432);
                 } catch (IOException ex) {
                     Logger.getLogger(NetworkController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             });
-//            GameData.client = new Socket(, 5555);
+//            GameData.client = new Socket(, 65432);
             PrintStream ps = new PrintStream(GameData.client.getOutputStream());
             System.out.println(GameData.player1.name);
             ps.println(GameData.player1.name);

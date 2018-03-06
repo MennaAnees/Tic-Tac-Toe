@@ -31,7 +31,7 @@ public class DatagramClient {
 
         for (String ip : ips) {
             try {
-                sendPacket = new DatagramPacket(sendMessage, sendMessage.length, InetAddress.getByName(ip), 5555);
+                sendPacket = new DatagramPacket(sendMessage, sendMessage.length, InetAddress.getByName(ip), 65432);
                 clientSocket.send(sendPacket);
                 System.out.println("client ");
             } catch (Exception e) { System.out.println("exception"); }
