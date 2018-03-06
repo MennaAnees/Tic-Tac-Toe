@@ -6,7 +6,7 @@ import java.util.*;
 
 public class IpScanner {
 
-	static String displayInterfaceInformation() throws SocketException {
+	public static String displayInterfaceInformation() throws SocketException {
 
 		String result = "";
 		Enumeration<NetworkInterface> nets = NetworkInterface.getNetworkInterfaces();

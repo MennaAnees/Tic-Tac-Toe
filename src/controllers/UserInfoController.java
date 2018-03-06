@@ -37,8 +37,29 @@ protected boolean player2Flag = true;
     @FXML
     private TextField playerName;
     
+    // cancel button listener
     @FXML
-    private void handleButtonAction(ActionEvent event) throws IOException {
+    private void handleCancelAction(ActionEvent event) throws IOException {
+        Node node = (Node) event.getSource();
+        Scene scene = node.getScene();
+        Stage stage = (Stage) scene.getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Entry.fxml"));
+        fxmlLoader.setController(new controllers.EntryController());
+        System.out.println(playerName.getText());
+
+        if(!player2Flag && GameData.getMode() == 2) {
+            playerSymbol.setText("×");
+            playerName.setText("");
+            playerLabel.setText("Player 1");
+            player2Flag = true;
+        } else {
+            Parent root = (Parent) fxmlLoader.load();
+            scene.setRoot(root);
+        }
+    }
+    // next button listener
+    @FXML
+    private void handleNextAction(ActionEvent event) throws IOException {
         Node node = (Node) event.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
         Scene scene = stage.getScene();
@@ -50,15 +71,20 @@ protected boolean player2Flag = true;
             GameData.player2 = new Player("CPU");
             Parent root = (Parent) fxmlLoader.load();
             scene.setRoot(root);
-
         } else if(player2Flag && GameData.getMode() == 2) {
-            playerSymbol.setText("𝖮");
+            playerSymbol.setText("🞅");
             GameData.player1 = new Player(playerName.getText());
             playerName.setText("");
             playerLabel.setText("Player 2");
             player2Flag = false;
         } else if(!player2Flag && GameData.getMode() == 2) {
             GameData.player2 = new Player(playerName.getText());
+            Parent root = (Parent) fxmlLoader.load();
+            scene.setRoot(root);
+        } else if(GameData.getMode() == 3) {
+            GameData.player1 = new Player(playerName.getText());
+            fxmlLoader = new FXMLLoader(getClass().getResource("/views/network.fxml"));
+            fxmlLoader.setController(new controllers.NetworkController());
             Parent root = (Parent) fxmlLoader.load();
             scene.setRoot(root);
         }

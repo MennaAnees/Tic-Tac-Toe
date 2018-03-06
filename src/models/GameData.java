@@ -6,6 +6,10 @@
 package models;
 
 import java.util.ArrayList;
+import java.io.*;
+import java.net.*;
+import java.util.*;
+import network.*;
 
 /**
  *
@@ -18,6 +22,15 @@ public class GameData {
     private static volatile int moveArray [][] = {{10,10,10},{10,10,10},{10,10,10}};
     private static boolean clickArray[][] = {{false,false,false},{false,false,false},{false,false,false}};
     private static ArrayList<String> moves = new ArrayList<String>();
+    public static ServerSocket server;
+    public static DatagramListener dgListener;
+    public static DatagramClient dgClient;
+    
+//    public static DatagramSocket dgserver;
+    public static Socket client;
+//    public static DatagramSocket dgclient;
+    public static Thread netListenThread;
+    public static boolean networkChoiceFlag = false;
     
     public static void reset(){
         moveCounter = 1;

@@ -52,11 +52,11 @@ public class LocalPlayersController implements Initializable {
             GameData.setClickArray(xPos, yPos);
             if(GameData.getCounter() % 2 == 0){
                 cell.setTextFill(javafx.scene.paint.Color.WHITE);
-                cell.setText("O");
+                cell.setText("🞅");
                 GameData.setMoveArray(xPos, yPos, 1);
             }
             else{
-                cell.setText("X");
+                cell.setText("×");
                 GameData.setMoveArray(xPos, yPos, 2);
             }
             GameData.incCounter();
