@@ -13,6 +13,8 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.*;
@@ -53,7 +55,7 @@ public class NetworkController implements Initializable {
     
     @FXML
     private void handleCreateAction(ActionEvent event) throws IOException {
-//        GameData.server = new ServerSocket(5555);
+        GameData.server = new ServerSocket(5555);
         models.GameData.networkChoiceFlag = true;
         GameData.dgListener = new DatagramListener(true, new ArrayList<models.Peer>());
         Thread dgThread = new Thread(GameData.dgListener);
@@ -69,6 +71,7 @@ public class NetworkController implements Initializable {
                     if (result.get() == ButtonType.NO) {
                         s.close();
                     } else {
+                        System.out.println("game Start");
                         models.GameData.networkChoiceFlag = false;
                     }
                 }
@@ -79,12 +82,13 @@ public class NetworkController implements Initializable {
     private void handleJoinAction(ActionEvent event) {
         try {
             ArrayList<models.Peer> servers = new ArrayList<>();
-//            ArrayList<String> ips = IpScanner.printReachable(IpScanner.displayInterfaceInformation());
-//            
-//            for(String ip : ips) {
-//                System.out.println(ip + "\n");
-//            }
-//
+//            System.out.println(servers.toString() + "hi");
+            ArrayList<String> ips = IpScanner.printReachable(IpScanner.displayInterfaceInformation());
+            
+            for(String ip : ips) {
+                System.out.println(ip + "\n");
+            }
+
             GameData.dgListener = new DatagramListener(false, servers);
             GameData.dgListener.start();
 //            GameData.dgClient = new DatagramClient(ips);
@@ -92,18 +96,24 @@ public class NetworkController implements Initializable {
                     "10.118.49.160",
                     "10.118.49.27",
                     "10.118.49.29")));
-            servers.addAll(Arrays.asList(new models.Peer("a", InetAddress.getByName("10.118.49.160"))));
-            System.out.println(servers.toString());
-            
-            ObservableList items = FXCollections.observableArrayList(servers);
+            servers.add(new models.Peer("a", InetAddress.getByName("10.118.49.160")));
+            ObservableList items = FXCollections.observableArrayList();
+            for(models.Peer peer : servers) {
+//                System.out.println(peer.name + "hi here 1");
+                items.add(peer.name + " @ " + peer.ip.toString().substring(1));
+            }
+//            servers.addAll(Arrays.asList(new models.Peer("a", InetAddress.getByName("10.118.49.160"))));            
             ListView<String> list = new ListView<String>();
             list.setItems(items);
-            list.setCellFactory(param -> new ListCell() {
-                protected void updateItem(models.Peer peer) {
-                    System.out.println(peer.name + "@" + peer.ip);
-                    setText(peer.name + "@" + peer.ip);
-                }
-            });
+            
+//            list.setCellFactory(param -> new ListCell() {
+//                protected void updateItem(models.Peer peer, boolean empty) {
+//                    super.updateItem(peer, empty);
+//                    if (peer != null) {
+//                        setText(peer.name);
+//                    }
+//                }
+//            });
 
             Dialog dialog = new Dialog();
             dialog.getDialogPane().setContent(list);
@@ -118,11 +128,17 @@ public class NetworkController implements Initializable {
             });
             Optional result = dialog.showAndWait();
             System.out.println(result.toString());
-//            result.ifPresent(choice -> System.out.println("Your choice: " + choice));
+            result.ifPresent(choice -> {
+                try {
+                    GameData.client = new Socket(choice.toString().substring(choice.toString().lastIndexOf("@") + 1), 5555);
+                } catch (IOException ex) {
+                    Logger.getLogger(NetworkController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            });
 //            GameData.client = new Socket(, 5555);
-//            PrintStream ps = new PrintStream(GameData.client.getOutputStream());
+            PrintStream ps = new PrintStream(GameData.client.getOutputStream());
             System.out.println(GameData.player1.name);
-//            ps.println(GameData.player1.name);
+            ps.println(GameData.player1.name);
         } catch(IOException e) {}
     }
 

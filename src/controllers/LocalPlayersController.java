@@ -7,12 +7,8 @@ package controllers;
 
 import java.io.IOException;
 import models.GameData;
-import models.DataBaseMainupulation;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import models.Player;
 
 /**
  *
@@ -41,7 +38,6 @@ public class LocalPlayersController implements Initializable {
         Stage stage = (Stage) node.getScene().getWindow();
         Scene scene = stage.getScene();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Winner.fxml"));
-        fxmlLoader.setController(new controllers.WinnerController());
         
         Button cell = (Button) event.getTarget();
         String move = cell.getId().substring(4,6);
@@ -61,26 +57,12 @@ public class LocalPlayersController implements Initializable {
             }
             GameData.incCounter();
             GameData.setMoves(move);
-            String winner = GameData.whoWin();
+            Player winner = GameData.whoWin();
+
             if (winner != null) {
+                fxmlLoader.setController(new controllers.WinnerController(winner));
                 Parent root = (Parent) fxmlLoader.load();
                 scene.setRoot(root);
-                
-//                String moves = String.join(":", GameData.getMoves());              
-//                DataBaseMainupulation db;
-                
-//                try {
-//                    db = new DataBaseMainupulation();
-//                    String winnername  = GameData.getCounter() % 2 == 0 ? GameData.player1.name : GameData.player2.name;
-//                    db.insert(GameData.player1.name, GameData.player2.name, moves, winnername);
-//                    db.closeConn();
-//                } catch (ClassNotFoundException ex) {
-//                    Logger.getLogger(LocalPlayersController.class.getName()).log(Level.SEVERE, null, ex);
-//                } catch (SQLException ex) {
-//                    Logger.getLogger(LocalPlayersController.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//                System.out.println(winner);
-//                System.out.println(moves);
             }
         }
 

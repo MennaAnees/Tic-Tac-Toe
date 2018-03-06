@@ -50,11 +50,11 @@ public class DatagramListener extends Thread {
                     }
                 } else if(message.indexOf("I am server:") == 0 && isServer == false) {
                     System.out.println("server added");
-                    this.servers.add(new Peer(message.substring(12), receivePacket.getAddress()));
-                    System.out.println(message.substring(12));
+                    this.servers.add(new models.Peer(message.substring(12), receivePacket.getAddress()));
+                    System.out.println(message.substring(12) + receivePacket.getAddress().toString());
                 }
                 	
-                System.out.println(message.substring(10));
+                System.out.println(message.substring(12));
 //                Thread.sleep(1000);
             }
         } catch(Exception e) {}

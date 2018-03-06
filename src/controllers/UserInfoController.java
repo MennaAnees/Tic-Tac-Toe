@@ -19,6 +19,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.InputMethodEvent;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import models.Player;
 
@@ -36,6 +38,28 @@ protected boolean player2Flag = true;
     private Label playerSymbol;
     @FXML
     private TextField playerName;
+    @FXML
+    private Button cancel;
+    @FXML
+    private Button next;
+    
+    @FXML
+    private void maxLengthHandeler(KeyEvent event) {
+        TextField node = (TextField) event.getSource();
+        String name = node.getText();
+        if (name.matches("\\s*")) {
+            next.setDisable(true);
+        }
+        else{
+            next.setDisable(false);
+
+        }
+        if (node.getText().length() > 10) {
+            String s = node.getText().substring(0, 10);
+            node.setText(s);
+
+        }
+    }
     
     // cancel button listener
     @FXML
@@ -69,6 +93,8 @@ protected boolean player2Flag = true;
         if(GameData.getMode() == 1) {
             GameData.player1 = new Player(playerName.getText());
             GameData.player2 = new Player("CPU");
+            fxmlLoader.setController(new controllers.SingleModeController1());
+
             Parent root = (Parent) fxmlLoader.load();
             scene.setRoot(root);
         } else if(player2Flag && GameData.getMode() == 2) {

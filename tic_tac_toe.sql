@@ -28,7 +28,7 @@ CREATE TABLE `saved_games` (
   `player_2` char(20) DEFAULT "player2",
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `winner` char(20) DEFAULT NULL,
-  `moves` varchar(18) DEFAULT NULL,
+  `moves` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`GID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
