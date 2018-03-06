@@ -31,6 +31,7 @@ public class GameData {
 //    public static DatagramSocket dgclient;
     public static Thread netListenThread;
     public static boolean networkChoiceFlag = false;
+    public static Thread ipScannerThread;
     
     public static void reset(){
         moveCounter = 1;

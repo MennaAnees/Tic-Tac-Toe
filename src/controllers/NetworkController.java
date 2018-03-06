@@ -94,6 +94,21 @@ public class NetworkController implements Initializable {
             GameData.dgClient = new DatagramClient();
 //            GameData.dgClient = new DatagramClient(ips);
             GameData.dgClient.start();
+            GameData.ipScannerThread = new Thread(() -> {
+                try {
+                    IpScanner.printReachable(IpScanner.displayInterfaceInformation(), IpScanner.ips);
+                } catch (SocketException ex) {
+                    Logger.getLogger(DatagramClient.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            });
+//            Thread th = new Thread(() -> {
+//                try {
+//                    IpScanner.printReachable(IpScanner.displayInterfaceInformation(), IpScanner.ips);
+//                } catch (SocketException ex) {
+//                    Logger.getLogger(DatagramClient.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            });
+            GameData.ipScannerThread.start();
 //            GameData.dgClient = new DatagramClient(new ArrayList<String>(Arrays.asList(
 //                    "10.118.49.160",
 //                    "10.118.49.27",

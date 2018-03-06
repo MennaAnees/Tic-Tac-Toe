@@ -35,24 +35,23 @@ public class DatagramClient extends Thread {
     }
     
     public void run() {
-        ArrayList<String> ips = new ArrayList<>();
-        Thread th = new Thread(() -> {
-            try {
-                IpScanner.printReachable(IpScanner.displayInterfaceInformation(), ips);
-            } catch (SocketException ex) {
-                Logger.getLogger(DatagramClient.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
-        th.start();
+//        Thread th = new Thread(() -> {
+//            try {
+//                IpScanner.printReachable(IpScanner.displayInterfaceInformation(), IpScanner.ips);
+//            } catch (SocketException ex) {
+//                Logger.getLogger(DatagramClient.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        });
+//        th.start();
         byte[] sendMessage = new byte[1024];
         sendMessage = new String("hello_XO:" + GameData.player1.name).getBytes();
         // sendMessage = "hello_XO".getBytes();
 
         while (GameData.networkChoiceFlag) {
-            for (String ip : ips) {
+            for (String ip : IpScanner.ips) {
                 try {
                     sendPacket = new DatagramPacket(sendMessage, sendMessage.length, InetAddress.getByName(ip), 65432);
-                    ips.remove(ips.indexOf(ip));
+                    IpScanner.ips.remove(IpScanner.ips.indexOf(ip));
                     clientSocket.send(sendPacket);
                     System.out.println("client ");
                 } catch (Exception e) {

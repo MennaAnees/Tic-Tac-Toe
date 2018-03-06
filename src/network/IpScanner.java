@@ -3,8 +3,11 @@ package network;
 import java.io.*;
 import java.net.*;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class IpScanner {
+    public static ArrayList<String> ips = new ArrayList<>();
 
 	public static String displayInterfaceInformation() throws SocketException {
 
@@ -57,7 +60,7 @@ public class IpScanner {
 		for(int i = 0; i < 256; i++) {
                     for(int j = 0; j < 256; j++) {
 			testAddress = ipBase + i + "." + j;
-                        System.out.println(testAddress);
+//                        System.out.println(testAddress);
 			try {
 				if(InetAddress.getByName(testAddress.toString()).isReachable(50)) {
 					System.out.println(testAddress);
