@@ -35,7 +35,7 @@ public class DatagramListener extends Thread {
     
     public void run() {
         try {
-            while(true) {
+            while(GameData.networkChoiceFlag) {
                 System.out.println("listening");
                 listenerSocket.receive(receivePacket);
                 String message = new String(receivePacket.getData());

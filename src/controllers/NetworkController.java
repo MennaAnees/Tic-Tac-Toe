@@ -79,25 +79,31 @@ public class NetworkController implements Initializable {
     }
     
     @FXML
-    private void handleJoinAction(ActionEvent event) {
+    private void handleJoinAction(ActionEvent event) throws InterruptedException {
         try {
             ArrayList<models.Peer> servers = new ArrayList<>();
 //            System.out.println(servers.toString() + "hi");
-            ArrayList<String> ips = IpScanner.printReachable(IpScanner.displayInterfaceInformation());
+//            ArrayList<String> ips = IpScanner.printReachable(IpScanner.displayInterfaceInformation());
             
-            for(String ip : ips) {
-                System.out.println(ip + "\n");
-            }
+//            for(String ip : ips) {
+//                System.out.println(ip + "\n");
+//            }
 
             GameData.dgListener = new DatagramListener(false, servers);
             GameData.dgListener.start();
-            GameData.dgClient = new DatagramClient(ips);
+            GameData.dgClient = new DatagramClient();
+//            GameData.dgClient = new DatagramClient(ips);
+            GameData.dgClient.start();
 //            GameData.dgClient = new DatagramClient(new ArrayList<String>(Arrays.asList(
 //                    "10.118.49.160",
 //                    "10.118.49.27",
 //                    "10.118.49.29")));
 //            servers.add(new models.Peer("a", InetAddress.getByName("10.118.49.160")));
             ObservableList items = FXCollections.observableArrayList();
+            do {
+                Thread.sleep(1000);
+            } while(servers.isEmpty());
+            System.out.println("hi");
             for(models.Peer peer : servers) {
 //                System.out.println(peer.name + "hi here 1");
                 items.add(peer.name + " @ " + peer.ip.toString().substring(1));
@@ -127,6 +133,7 @@ public class NetworkController implements Initializable {
 //                return new Result(list.getSelectionModel().getSelectedItem());
             });
             Optional result = dialog.showAndWait();
+            GameData.networkChoiceFlag = false;
             System.out.println(result.toString());
             result.ifPresent(choice -> {
                 try {
