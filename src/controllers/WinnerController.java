@@ -67,6 +67,10 @@ public class WinnerController implements Initializable {
             img.setImage(new Image ("/views/imgs/draw.png"));
         }
         else{
+            if (!winner.equals(GameData.player1)) {
+                img.setImage(new Image ("/views/imgs/loser.png"));
+
+            }
             label.setText(winner.name);
         }
     }    
