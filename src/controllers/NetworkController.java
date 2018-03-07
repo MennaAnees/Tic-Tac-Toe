@@ -39,7 +39,7 @@ public class NetworkController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        models.GameData.networkChoiceFlag = true;
     }
     
     @FXML
@@ -63,7 +63,6 @@ public class NetworkController implements Initializable {
     private void handleCreateAction(ActionEvent event) {
         models.GameData.moveAllowance = true;
         models.GameData.isServer = true;
-        models.GameData.networkChoiceFlag = true;
         try {
             GameData.server = new ServerSocket(65432);
         } catch (IOException ex) {
@@ -71,12 +70,12 @@ public class NetworkController implements Initializable {
 //            Logger.getLogger(NetworkController.class.getName()).log(Level.SEVERE, null, ex);
         }
         GameData.dgListener = new DatagramListener(true, new ArrayList<models.Peer>());
-        Thread dgThread = new Thread(GameData.dgListener);
-        dgThread.start();
+        GameData.dgListener.start();
         
         try {
             while(models.GameData.networkChoiceFlag) {
                 GameData.connectionSocket = GameData.server.accept();
+                System.out.println("omran");
                 GameData.dis = new DataInputStream(GameData.connectionSocket.getInputStream());
                 Peer peer = new Peer(GameData.dis.readLine(), GameData.connectionSocket.getInetAddress());
                 Alert alert = new Alert(AlertType.CONFIRMATION, "player: " + peer.name + " @ " + peer.ip.toString().substring(1) + "wants to connect", ButtonType.NO, ButtonType.OK);
@@ -100,7 +99,6 @@ public class NetworkController implements Initializable {
     private void handleJoinAction(ActionEvent event) {
         models.GameData.moveAllowance = false;
         models.GameData.isServer = false;
-        models.GameData.networkChoiceFlag = true;
         try {
             ArrayList<models.Peer> servers = new ArrayList<>();
 
@@ -148,7 +146,9 @@ public class NetworkController implements Initializable {
             System.out.println(result.toString());
             result.ifPresent(choice -> {
                 try {
-                    GameData.connectionSocket = new Socket(choice.toString().substring(choice.toString().lastIndexOf("@") + 1), 65432);
+                    System.out.println("connecting to server");
+                    System.out.println(choice.toString().substring(choice.toString().lastIndexOf("@") + 2));
+                    GameData.connectionSocket = new Socket(choice.toString().substring(choice.toString().lastIndexOf("@") + 2), 65432);
                 } catch (IOException ex) {
                     Logger.getLogger(NetworkController.class.getName()).log(Level.SEVERE, null, ex);
                 }

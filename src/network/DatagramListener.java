@@ -20,7 +20,11 @@ public class DatagramListener extends Thread {
         try {
             this.isServer = pisServer;
             this.servers = pservers;
-            listenerSocket = new DatagramSocket(65432);
+            if(models.GameData.isServer) {
+                listenerSocket = new DatagramSocket(65432);
+            } else {
+                listenerSocket = new DatagramSocket(65431);
+            }
             receiveData = new byte[1024];
             receivePacket = new DatagramPacket(receiveData, receiveData.length);
         } catch(Exception e) {}
@@ -46,7 +50,7 @@ public class DatagramListener extends Thread {
                     if(isServer) {
                         System.out.println("hi there");
                         System.out.println(receivePacket.getAddress().toString());
-                    	sendMessage("I am server:" + GameData.player1.name, receivePacket.getAddress().toString().substring(1), 65432);
+                    	sendMessage("I am server:" + GameData.player1.name, receivePacket.getAddress().toString().substring(1), 65431);
                     }
                 } else if(message.indexOf("I am server:") == 0 && isServer == false) {
                     System.out.println("server added");
