@@ -154,6 +154,7 @@ public class NetworkModeController implements Initializable {
             winner = GameData.whoWin();
             
             if (winner != null) {
+                GameData.networkMainGameThread.stop();
                 fxmlLoader.setController(new controllers.WinnerController(winner));
                 Parent root = (Parent) fxmlLoader.load();
                 scene.setRoot(root);
