@@ -32,7 +32,7 @@ public class GameData {
     public static Thread ipScannerThread;
     public static Thread networkMainGameThread;
     public static boolean networkChoiceFlag = false;
-    public static boolean isServer = true;
+    public static boolean isServer;
     public static boolean moveAllowance;
 
     
@@ -43,7 +43,6 @@ public class GameData {
                 moveArray[i][j] = 10;
                 clickArray[i][j] = false;
                 moves.removeAll(moves);
-                isServer = true;
             }
         }
     }
@@ -77,14 +76,14 @@ public class GameData {
                 sum1 += moveArray[i][j];
                 sum2 += moveArray[j][i];
             }
-            if(sum1==3 || sum2==3){return isServer? player2 : player1;}
-            else if(sum1==6 || sum2==6){return isServer? player1 : player2;}
+            if(sum1==3 || sum2==3){return player2;}
+            else if(sum1==6 || sum2==6){return player1;}
             else{sum1=0; sum2=0;}
         }
-        if(moveArray[0][0]+moveArray[1][1]+moveArray[2][2]==3){return isServer? player2 : player1;}
-        if(moveArray[0][0]+moveArray[1][1]+moveArray[2][2]==6){return isServer? player1 : player2;}
-        if(moveArray[0][2]+moveArray[1][1]+moveArray[2][0]==3){return isServer? player2 : player1;}
-        if(moveArray[0][2]+moveArray[1][1]+moveArray[2][0]==6){return isServer? player1 : player2;}
+        if(moveArray[0][0]+moveArray[1][1]+moveArray[2][2]==3){return player2;}
+        if(moveArray[0][0]+moveArray[1][1]+moveArray[2][2]==6){return player1;}
+        if(moveArray[0][2]+moveArray[1][1]+moveArray[2][0]==3){return player2;}
+        if(moveArray[0][2]+moveArray[1][1]+moveArray[2][0]==6){return player1;}
         if(moveCounter==10){return new Player("noWinner");}
         return null;
     }
