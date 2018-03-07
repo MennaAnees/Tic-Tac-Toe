@@ -182,7 +182,7 @@ public class NetworkController implements Initializable {
                     System.out.println(choice.toString().substring(choice.toString().lastIndexOf("@") + 2));
                     GameData.connectionSocket = new Socket(choice.toString().substring(choice.toString().lastIndexOf("@") + 2), 65432);
                     GameData.dis = new DataInputStream(GameData.connectionSocket.getInputStream());
-                    GameData.player2 = new models.Player(choice.toString().substring(0,choice.toString().indexOf("@") - 1));
+                    GameData.player2 = new models.Player(choice.toString().substring(0,choice.toString().indexOf("@") - 1).trim());
                     System.out.println(choice.toString().indexOf("@") - 1);
                 } catch (IOException ex) {
                     Logger.getLogger(NetworkController.class.getName()).log(Level.SEVERE, null, ex);
