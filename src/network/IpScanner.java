@@ -44,36 +44,41 @@ public class IpScanner {
                 System.out.println(ipBase + ".");
                 mySegment += ".";
 //		ipBase = ipAddress.substring(0, ipAddress.lastIndexOf('.')) + ".";
-                for(int i = 0; i < 256; i++) {
-                    testAddress = mySegment + i;
-                    try {
-                        if (InetAddress.getByName(testAddress.toString()).isReachable(50)) {
-                            System.out.println(testAddress);
-                            ips.add(testAddress);
+                while (true) {
+                    for(int i = 0; i < 256; i++) {
+                        testAddress = mySegment + i;
+                        try {
+                            if (InetAddress.getByName(testAddress.toString()).isReachable(50)) {
+                                System.out.println(testAddress);
+                                if(!ips.contains(testAddress)) {
+                                    ips.add(testAddress);
+                                }
+                            }
+                        } catch (UnknownHostException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
-                    } catch (UnknownHostException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
                     }
+                    Thread.sleep(500);
+                    System.out.println("researching");
                 }
-
-		for(int i = 0; i < 256; i++) {
-                    for(int j = 0; j < 256; j++) {
-			testAddress = ipBase + i + "." + j;
-//                        System.out.println(testAddress);
-			try {
-				if(InetAddress.getByName(testAddress.toString()).isReachable(50)) {
-					System.out.println(testAddress);
-					ips.add(testAddress);
-				}
-			} catch(UnknownHostException e) {
-				e.printStackTrace();
-			} catch(IOException e) {
-				e.printStackTrace();
-			}
-                    }
-		}
+//		for(int i = 0; i < 256; i++) {
+//                    for(int j = 0; j < 256; j++) {
+//			testAddress = ipBase + i + "." + j;
+////                        System.out.println(testAddress);
+//			try {
+//				if(InetAddress.getByName(testAddress.toString()).isReachable(50)) {
+//					System.out.println(testAddress);
+//					ips.add(testAddress);
+//				}
+//			} catch(UnknownHostException e) {
+//				e.printStackTrace();
+//			} catch(IOException e) {
+//				e.printStackTrace();
+//			}
+//                    }
+//		}
                 } catch (Exception e) {
                 System.out.println("no reachable network");
             }
