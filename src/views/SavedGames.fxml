@@ -35,28 +35,6 @@
                   <Cursor fx:constant="CLOSED_HAND" />
                </cursor>
             </ImageView>
-            <ImageView fx:id="tryAgain" fitHeight="68.0" fitWidth="150.0" onMouseClicked="#handleButtonAction" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
-               <image>
-                  <Image url="@imgs/tryagain.png" />
-               </image>
-               <GridPane.margin>
-                  <Insets left="40.0" />
-               </GridPane.margin>
-               <cursor>
-                  <Cursor fx:constant="CLOSED_HAND" />
-               </cursor>
-            </ImageView>
-            <ImageView fx:id="save" fitHeight="68.0" fitWidth="150.0" onMouseClicked="#handleButtonAction" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
-               <image>
-                  <Image url="@imgs/save.png" />
-               </image>
-               <cursor>
-                  <Cursor fx:constant="CLOSED_HAND" />
-               </cursor>
-               <GridPane.margin>
-                  <Insets left="40.0" />
-               </GridPane.margin>
-            </ImageView>
             <ImageView fx:id="home" fitHeight="68.0" fitWidth="150.0" onMouseClicked="#handleButtonAction" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
                <image>
                   <Image url="@imgs/home.png" />
