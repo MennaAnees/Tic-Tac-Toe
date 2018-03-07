@@ -7,6 +7,7 @@ package controllers;
 
 import java.io.*;
 import java.net.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -21,6 +22,9 @@ import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javax.naming.spi.DirStateFactory.Result;
@@ -33,6 +37,20 @@ import network.*;
  * @author a7mad
  */
 public class NetworkController implements Initializable {
+    @FXML
+    private Label label;
+    @FXML
+    private ImageView exit;
+    @FXML
+    private ImageView tryAgain;
+    @FXML
+    private ImageView save;
+    @FXML
+    private ImageView img;
+    
+    boolean saved = false;
+    Player winner;
+    
     FXMLLoader fxmlLoaderMain;
     FXMLLoader fxmlLoaderUser;
     /**
@@ -193,6 +211,52 @@ public class NetworkController implements Initializable {
             }
         } catch(IOException e) { System.out.println("exception"); }
     }
+    
+    
+     @FXML
+    private void handleButtonAction(MouseEvent event) throws IOException, SQLException {
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        Scene scene = stage.getScene();
+        String id = node.getId();
+        if (id.equals("exit")) {
+            System.exit(0);
+        }
+        else if (id.equals("tryAgain")) {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/MainGame.fxml"));
+           if(GameData.getMode()==1){fxmlLoader.setController(new controllers.SingleModeController1());}
+           if(GameData.getMode()==2){fxmlLoader.setController(new controllers.LocalPlayersController());}
+            
+            Parent root = (Parent) fxmlLoader.load();
+            scene.setRoot(root);
+        }
+        else if (id.equals("home")) {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Entry.fxml"));
+            fxmlLoader.setController(new controllers.EntryController());
+            Parent root = (Parent) fxmlLoader.load();
+            scene.setRoot(root);
+
+        }
+        else if (id.equals("save") && !saved) {
+            String moves = String.join(":", GameData.getMoves());              
+            DataBaseMainupulation db;
+            try {
+                db = new DataBaseMainupulation();
+                db.insert(GameData.player1.name, GameData.player2.name, moves, winner.name);
+                db.closeConn();
+                save.setImage(new Image ("/views/imgs/saveok.png"));
+                saved = true;
+                System.out.println(saved);
+
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(LocalPlayersController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(LocalPlayersController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+    }
+
 
     
 }
