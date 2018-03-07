@@ -29,8 +29,8 @@ import models.Player;
  * @author omran
  */
 public class UserInfoController implements Initializable {
+    
 protected boolean player2Flag = true;
-
 
     @FXML
     private Label playerLabel;
@@ -89,7 +89,10 @@ protected boolean player2Flag = true;
         Scene scene = stage.getScene();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/MainGame.fxml"));
         fxmlLoader.setController(new controllers.LocalPlayersController());
+        
+        
         System.out.println(playerName.getText());
+        
         if(GameData.getMode() == 1) {
             GameData.player1 = new Player(playerName.getText());
             GameData.player2 = new Player("CPU");
@@ -114,6 +117,7 @@ protected boolean player2Flag = true;
             Parent root = (Parent) fxmlLoader.load();
             scene.setRoot(root);
         }
+        
     }
     
     @Override

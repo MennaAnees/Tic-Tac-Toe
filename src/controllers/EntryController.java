@@ -25,8 +25,8 @@ import javafx.stage.Stage;
  * @author omran
  */
 public class EntryController implements Initializable {
-   
-    
+
+
     @FXML
     private void handleButtonAction(ActionEvent event) throws IOException {
         Node node = (Node) event.getSource();
@@ -39,12 +39,28 @@ public class EntryController implements Initializable {
         System.out.println(node.getId());
         if (node.getId().equals("single")) {
             GameData.setMode(1);
+
+
         }
         else if (node.getId().equals("players")) {
             GameData.setMode(2);
+
+
+
         }
         else if (node.getId().equals("online")) {
             GameData.setMode(3);
+
+
+        }
+
+
+        else if (node.getId().equals("view")) {
+
+        fxmlLoader = new FXMLLoader(getClass().getResource("/views/SavedGames.fxml"));
+        fxmlLoader.setController(new controllers.SavedGameController());
+        root = (Parent) fxmlLoader.load();
+
         }
         else if (node.getId().equals("savedGames")) {
             fxmlLoader = new FXMLLoader(getClass().getResource("/views/SavedGames.fxml"));
@@ -53,12 +69,14 @@ public class EntryController implements Initializable {
         }
         scene.setRoot(root);
 
+
+
     }
-        
-    
+
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }
+
 }
