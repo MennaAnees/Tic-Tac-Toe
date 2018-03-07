@@ -86,6 +86,28 @@ public class WinnerController implements Initializable {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/MainGame.fxml"));
            if(GameData.getMode()==1){fxmlLoader.setController(new controllers.SingleModeController1());}
            if(GameData.getMode()==2){fxmlLoader.setController(new controllers.LocalPlayersController());}
+           if(GameData.getMode()==3){
+               Thread repSend = new Thread(() -> {
+                   while(true) {
+                       GameData.ps.println("tryAgain");
+                       try {
+                           Thread.sleep(500);
+                       } catch (InterruptedException ex) {
+                           Logger.getLogger(WinnerController.class.getName()).log(Level.SEVERE, null, ex);
+                       }
+                   }
+               });
+               repSend.start();
+               GameData.dis.readLine();
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(WinnerController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+               repSend.stop();
+               fxmlLoader.setController(new controllers.NetworkModeController());               
+           }
+           
             
             Parent root = (Parent) fxmlLoader.load();
             scene.setRoot(root);
