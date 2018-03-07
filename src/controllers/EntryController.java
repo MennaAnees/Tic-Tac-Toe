@@ -35,17 +35,37 @@ public class EntryController implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/user_info.fxml"));
         fxmlLoader.setController(new controllers.UserInfoController());
         Parent root = (Parent) fxmlLoader.load();
-
+       
+        
+        
         if (node.getId().equals("single")) {
-            GameData.setMode(1);
+            GameData.setMode(1);        
+
+            
         }
         else if (node.getId().equals("players")) {
-            GameData.setMode(2);
+            GameData.setMode(2);        
+
+            
+
         }
         else if (node.getId().equals("online")) {
             GameData.setMode(3);
+
+
+        }
+        
+
+        else if (node.getId().equals("view")) {
+              
+        fxmlLoader = new FXMLLoader(getClass().getResource("/views/SavedGames.fxml"));
+        fxmlLoader.setController(new controllers.SavedGameController());
+        root = (Parent) fxmlLoader.load();
+
         }
         scene.setRoot(root);
+        
+
 
     }
         

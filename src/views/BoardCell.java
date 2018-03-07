@@ -7,6 +7,7 @@ package views;
 import java.util.ArrayList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import models.GameData;
 
 /**
  *
@@ -20,7 +21,13 @@ public class BoardCell extends Button{
     private int xPos;
     private int yPos;
     ArrayList<Integer> a ;
+    
+    
+    
     public BoardCell(int x, int y) {
+        
+
+            
         xPos = x;
         yPos = y;
         this.setOnAction(e -> {
@@ -48,7 +55,13 @@ public class BoardCell extends Button{
             }
         });
     }
+    
+
+    
     static String whoWin(){
+        
+
+
         int sum1 = 0;
         int sum2 = 0;
 
@@ -65,9 +78,16 @@ public class BoardCell extends Button{
         if(moveArray[0][0]+moveArray[1][1]+moveArray[2][2]==6){return "X";}
         if(moveArray[0][2]+moveArray[1][1]+moveArray[2][0]==3){return "O";}
         if(moveArray[0][2]+moveArray[1][1]+moveArray[2][0]==6){return "X";}
+                     
+                     
         return null;
-    }
+   
+    }    
     
     public boolean isClicked(){return clickedFlag;}
-}
+
+
+
+}       
+
 
