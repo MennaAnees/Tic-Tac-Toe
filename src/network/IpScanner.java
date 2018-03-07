@@ -48,7 +48,7 @@ public class IpScanner {
                     for(int i = 0; i < 256; i++) {
                         testAddress = mySegment + i;
                         try {
-                            if (InetAddress.getByName(testAddress.toString()).isReachable(50)) {
+                            if (InetAddress.getByName(testAddress.toString()).isReachable(100)) {
                                 System.out.println(testAddress);
                                 if(!ips.contains(testAddress)) {
                                     ips.add(testAddress);
