@@ -33,13 +33,18 @@ import network.*;
  * @author a7mad
  */
 public class NetworkController implements Initializable {
-
+    FXMLLoader fxmlLoaderMain;
+    FXMLLoader fxmlLoaderUser;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         models.GameData.networkChoiceFlag = true;
+        fxmlLoaderMain = new FXMLLoader(getClass().getResource("/views/MainGame.fxml"));
+        fxmlLoaderMain.setController(new controllers.NetworkModeController());
+        fxmlLoaderUser = new FXMLLoader(getClass().getResource("/views/user_into.fxml"));
+        fxmlLoaderUser.setController(new controllers.UserInfoController());
     }
     
     @FXML
@@ -47,11 +52,9 @@ public class NetworkController implements Initializable {
         Node node = (Node) event.getSource();
         Scene scene = node.getScene();
         Stage stage = (Stage) scene.getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/user_info.fxml"));
-        fxmlLoader.setController(new controllers.UserInfoController());
         Parent root;
         try {
-            root = (Parent) fxmlLoader.load();
+            root = (Parent) fxmlLoaderUser.load();
             scene.setRoot(root);
         } catch (IOException ex) {
             System.out.println("cann't fetch fxml file");
@@ -86,10 +89,21 @@ public class NetworkController implements Initializable {
                     } else {
                         System.out.println("game Start");
                         models.GameData.networkChoiceFlag = false;
-                        GameData.moveAllowance = true;
-                        GameData.ipScannerThread.stop();
                         GameData.dgListener.stop();
-                        GameData.player2.name = peer.name;
+                        GameData.player2 = new models.Player(peer.name);
+                        System.out.println("game hi");
+                        GameData.ps = new PrintStream(GameData.connectionSocket.getOutputStream());
+//            System.out.println(GameData.player1.name);
+//                        GameData.ps.println(GameData.player1.name);
+                        Node node = (Node) event.getSource();
+                        Scene scene = node.getScene();
+                        GameData.networkChoiceFlag = false;
+                        GameData.moveAllowance = true;
+                        GameData.ps.println("start");  // 2nd 1st
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/MainGame.fxml"));
+                        fxmlLoader.setController(new controllers.NetworkModeController());
+                        Parent root = (Parent) fxmlLoader.load();
+                        scene.setRoot(root);
                     }
                 }
             } catch(Exception e) { System.out.println("exception"); }
@@ -118,13 +132,13 @@ public class NetworkController implements Initializable {
             });
             GameData.ipScannerThread.start();
             ObservableList items = FXCollections.observableArrayList();
-            do {
+            while(servers.isEmpty()) {
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(NetworkController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } while(servers.isEmpty());
+            } ;
             for(models.Peer peer : servers) {
                 items.add(peer.name + " @ " + peer.ip.toString().substring(1));
             }
@@ -149,24 +163,34 @@ public class NetworkController implements Initializable {
                     System.out.println("connecting to server");
                     System.out.println(choice.toString().substring(choice.toString().lastIndexOf("@") + 2));
                     GameData.connectionSocket = new Socket(choice.toString().substring(choice.toString().lastIndexOf("@") + 2), 65432);
+                    GameData.dis = new DataInputStream(GameData.connectionSocket.getInputStream());
+                    GameData.player2 = new models.Player(choice.toString().substring(choice.toString().indexOf("@") - 1));
+                    System.out.println(choice.toString().indexOf("@") - 1);
                 } catch (IOException ex) {
                     Logger.getLogger(NetworkController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             });
+            
             GameData.ps = new PrintStream(GameData.connectionSocket.getOutputStream());
 //            System.out.println(GameData.player1.name);
-            GameData.ps.println(GameData.player1.name);
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/MainGame.fxml"));
-            fxmlLoader.setController(new controllers.NetworkModeController());
-            Parent root = (Parent) fxmlLoader.load();
-            Node node = (Node) event.getSource();
-            Scene scene = node.getScene();
-            GameData.networkChoiceFlag = false;
+            GameData.ps.println(GameData.player1.name); // 1st 1st
+            System.out.println(GameData.player1.name+"175"); // 1st 1st
             GameData.moveAllowance = false;
             GameData.ipScannerThread.stop();
             GameData.dgListener.stop();
             GameData.dgClient.stop();
-            scene.setRoot(root);
+            while(GameData.networkChoiceFlag) {
+                String msg = GameData.dis.readLine();
+                System.out.println(msg + "HHH");
+                if (msg.indexOf("start") == 0) {
+                    System.out.println(msg + "zzz");
+                    Parent root = (Parent) fxmlLoaderMain.load();
+                    Node node = (Node) event.getSource();
+                    Scene scene = node.getScene();
+                    GameData.networkChoiceFlag = false;
+                    scene.setRoot(root);
+                }
+            }
         } catch(IOException e) { System.out.println("exception"); }
     }
 

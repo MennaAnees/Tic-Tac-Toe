@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -76,45 +77,54 @@ public class NetworkModeController implements Initializable {
             player2label.setText(GameData.player2.name + ": X");
         }
         GameData.networkMainGameThread = new Thread(() -> {
-            try {
-                String move = GameData.dis.readLine();
-                Button cell = (Button) cell00.getParent().lookup("#cell" + move.substring(0, 1) + move.substring(1, 2));
-                int xPos = Character.getNumericValue(cell.getId().charAt(4));
-                int yPos =  Character.getNumericValue(cell.getId().charAt(5));
-                GameData.setClickArray(xPos, yPos);
-                if(GameData.getCounter() % 2 == 0 && GameData.isServer){
-                    cell.setTextFill(javafx.scene.paint.Color.WHITE);
-                    cell.setText("O");
-                    GameData.setMoveArray(xPos, yPos, 1);
-                } else {
-                    cell.setText("X");
-                    GameData.setMoveArray(xPos, yPos, 2);
-                }
-                GameData.incCounter();
-                GameData.setMoves(move);
-                GameData.moveAllowance = true;
-                winner = GameData.whoWin();
+            while(true) {
+                try {
+                    String move = GameData.dis.readLine();
+                    System.out.println(move);
+                    System.out.println("#cell" + move.substring(0, 1) + move.substring(1, 2));
+                    final Button cell = (Button) cell00.getParent().lookup("#cell" + move);
+                    System.out.println(cell);
+                    int xPos = Character.getNumericValue(cell.getId().charAt(4));
+                    int yPos =  Character.getNumericValue(cell.getId().charAt(5));
+                    GameData.setClickArray(xPos, yPos);
+                    if(GameData.getCounter() % 2 == 0 && GameData.isServer){
+                        Platform.runLater(() -> {
+                            cell.setTextFill(javafx.scene.paint.Color.WHITE);
+                            cell.setText("O");
+                            });
+                        GameData.setMoveArray(xPos, yPos, 1);
+                    } else {
+                        Platform.runLater(() -> {
+                            cell.setText("X");
+                        });
+                        GameData.setMoveArray(xPos, yPos, 2);
+                    }
+                    GameData.incCounter();
+                    GameData.setMoves(move);
+                    GameData.moveAllowance = true;
+                    winner = GameData.whoWin();
 
-                if (winner != null) {
-                    Stage stage = (Stage) cell.getScene().getWindow();
-                    Scene scene = stage.getScene();
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Winner.fxml"));
-                    fxmlLoader.setController(new controllers.WinnerController(winner));
-                    Parent root = (Parent) fxmlLoader.load();
-                    scene.setRoot(root);
+                    if (winner != null) {
+                        Stage stage = (Stage) cell.getScene().getWindow();
+                        Scene scene = stage.getScene();
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Winner.fxml"));
+                        fxmlLoader.setController(new controllers.WinnerController(winner));
+                        Parent root = (Parent) fxmlLoader.load();
+                        scene.setRoot(root);
+                    }
+                } catch (IOException ex) {
+                    System.out.println("can't connect now");
+    //                Logger.getLogger(NetworkModeController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } catch (IOException ex) {
-                System.out.println("can't connect now");
-//                Logger.getLogger(NetworkModeController.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-        
+        GameData.networkMainGameThread.start();
         GameData.reset();
     }    
 
     @FXML
     private void handleButtonAction(ActionEvent event) throws IOException {
-       
+//        System.out.println("hi game");
         Node node = (Node) event.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
         Scene scene = stage.getScene();
@@ -126,6 +136,7 @@ public class NetworkModeController implements Initializable {
         int yPos =  Character.getNumericValue(cell.getId().charAt(5));
         if (!GameData.isClicked(xPos, yPos) && GameData.moveAllowance) {
             GameData.setClickArray(xPos, yPos);
+            System.out.println("hi game" + GameData.moveAllowance);
             if(GameData.getCounter() % 2 == 0 || !GameData.isServer){
                 cell.setTextFill(javafx.scene.paint.Color.WHITE);
                 cell.setText("O");
@@ -137,7 +148,9 @@ public class NetworkModeController implements Initializable {
             GameData.incCounter();
             GameData.setMoves(move);
             GameData.moveAllowance = false;
+            System.out.println("hi before" + cell.getId().substring(4, 6));
             models.GameData.ps.println(cell.getId().substring(4,6));
+            System.out.println("hi after" + cell.getId().substring(4, 6));
             winner = GameData.whoWin();
             
             if (winner != null) {
@@ -145,7 +158,6 @@ public class NetworkModeController implements Initializable {
                 Parent root = (Parent) fxmlLoader.load();
                 scene.setRoot(root);
             }
-            
         }
         
         
