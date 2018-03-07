@@ -42,6 +42,11 @@ public class DataBaseMainupulation {
         pst.setString(4, moves);
         pst.executeUpdate();
     }
+    public void del(int id) throws SQLException{
+        pst = conn.prepareStatement("delete from saved_games where `GID`=?");
+        pst.setString(1, String.valueOf(id));
+        pst.executeUpdate();
+    }
     
     public ResultSet get() throws SQLException{
         pst = conn.prepareStatement("select * from saved_games");

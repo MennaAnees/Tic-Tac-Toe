@@ -3,10 +3,13 @@ package network;
 import java.io.*;
 import java.net.*;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class IpScanner {
+    public static ArrayList<String> ips = new ArrayList<>();
 
-	static String displayInterfaceInformation() throws SocketException {
+	public static String displayInterfaceInformation() throws SocketException {
 
 		String result = "";
 		Enumeration<NetworkInterface> nets = NetworkInterface.getNetworkInterfaces();
@@ -27,24 +30,58 @@ public class IpScanner {
 		return result;
 	}
 
-	public static ArrayList<String> printReachable(String ipAddress) {
+	public static void printReachable(String ipAddress, ArrayList<String> ips) {
+//	public static ArrayList<String> printReachable(String ipAddress) {
 
-		ArrayList<String> ips = new ArrayList<String>();
-		String ipBase = ipAddress.substring(0, ipAddress.lastIndexOf('.')) + ".";
-
-		for (int i = 0; i < 256; i++) {
-			String testAddress = ipBase + i;
-			try {
-				if(InetAddress.getByName(testAddress.toString()).isReachable(50)) {
-					System.out.println(testAddress);
-					ips.add(testAddress);
-				}
-			} catch(UnknownHostException e) {
-				e.printStackTrace();
-			} catch(IOException e) {
-				e.printStackTrace();
-			}
-		}
-		return ips;
+                String testAddress;
+                String mySegment;
+                String ipBase;
+//		ArrayList<String> ips = new ArrayList<String>();
+		try {
+                    mySegment = ipAddress.substring(0, ipAddress.lastIndexOf('.'));
+		System.out.println(mySegment);
+		ipBase = mySegment.substring(0, mySegment.lastIndexOf('.')) + ".";
+                System.out.println(ipBase + ".");
+                mySegment += ".";
+//		ipBase = ipAddress.substring(0, ipAddress.lastIndexOf('.')) + ".";
+                while (true) {
+                    for(int i = 0; i < 256; i++) {
+                        testAddress = mySegment + i;
+                        try {
+                            if (InetAddress.getByName(testAddress.toString()).isReachable(50)) {
+                                System.out.println(testAddress);
+                                if(!ips.contains(testAddress)) {
+                                    ips.add(testAddress);
+                                }
+                            }
+                        } catch (UnknownHostException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    Thread.sleep(500);
+                    System.out.println("researching");
+                }
+//		for(int i = 0; i < 256; i++) {
+//                    for(int j = 0; j < 256; j++) {
+//			testAddress = ipBase + i + "." + j;
+////                        System.out.println(testAddress);
+//			try {
+//				if(InetAddress.getByName(testAddress.toString()).isReachable(50)) {
+//					System.out.println(testAddress);
+//					ips.add(testAddress);
+//				}
+//			} catch(UnknownHostException e) {
+//				e.printStackTrace();
+//			} catch(IOException e) {
+//				e.printStackTrace();
+//			}
+//                    }
+//		}
+                } catch (Exception e) {
+                System.out.println("no reachable network");
+            }
+//		return ips;
 	}
 }

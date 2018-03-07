@@ -1,36 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="600.0" style="-fx-background-color: #0DA192;;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="600.0" style="-fx-background-color: #0DA192;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="100.0" layoutY="21.0" prefHeight="70.0" prefWidth="394.0" text="Tic Tac Toe.." textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font size="57.0" />
          </font>
       </Label>
-      <Button id="online" fx:id="online" layoutX="191.0" layoutY="269.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="53.0" prefWidth="206.0" style="-fx-background-color: #14BDAC;;" text="Play Online">
+      <Button id="online" fx:id="online" layoutX="191.0" layoutY="269.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="53.0" prefWidth="206.0" style="-fx-background-color: #14BDAC;" text="Play Online">
          <font>
             <Font size="24.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
       </Button>
       <Button id="players" fx:id="players" layoutX="191.0" layoutY="200.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="53.0" prefWidth="206.0" style="-fx-background-color: #14BDAC;;" text="2 Players ">
          <font>
             <Font size="24.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
       </Button>
-      <Button id="single" fx:id="single" layoutX="191.0" layoutY="130.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="53.0" prefWidth="206.0" style="-fx-background-color: #14BDAC;;" text="Single mode">
+      <Button id="single" fx:id="single" layoutX="191.0" layoutY="132.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="53.0" prefWidth="206.0" style="-fx-background-color: #14BDAC;;" text="Single mode">
          <font>
             <Font size="24.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
       </Button>
-      <Button id="view" fx:id="online1" layoutX="191.0" layoutY="343.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="53.0" prefWidth="206.0" style="-fx-background-color: #14BDAC;;" text="View Saved">
+      <Button id="savedGames" fx:id="savedGames" layoutX="191.0" layoutY="338.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="53.0" prefWidth="206.0" style="-fx-background-color: #14BDAC;;" text="View Saved">
          <font>
             <Font size="24.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
       </Button>
    </children>
 </Pane>

@@ -25,28 +25,27 @@ import javafx.stage.Stage;
  * @author omran
  */
 public class EntryController implements Initializable {
-   
-    
+
+
     @FXML
     private void handleButtonAction(ActionEvent event) throws IOException {
         Node node = (Node) event.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
+        stage.setResizable(false);
         Scene scene = stage.getScene();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/user_info.fxml"));
         fxmlLoader.setController(new controllers.UserInfoController());
         Parent root = (Parent) fxmlLoader.load();
-       
-        
-        
+        System.out.println(node.getId());
         if (node.getId().equals("single")) {
-            GameData.setMode(1);        
+            GameData.setMode(1);
 
-            
+
         }
         else if (node.getId().equals("players")) {
-            GameData.setMode(2);        
+            GameData.setMode(2);
 
-            
+
 
         }
         else if (node.getId().equals("online")) {
@@ -54,25 +53,30 @@ public class EntryController implements Initializable {
 
 
         }
-        
+
 
         else if (node.getId().equals("view")) {
-              
+
         fxmlLoader = new FXMLLoader(getClass().getResource("/views/SavedGames.fxml"));
         fxmlLoader.setController(new controllers.SavedGameController());
         root = (Parent) fxmlLoader.load();
 
         }
+        else if (node.getId().equals("savedGames")) {
+            fxmlLoader = new FXMLLoader(getClass().getResource("/views/SavedGames.fxml"));
+            fxmlLoader.setController(new controllers.SavedGamesController());
+            root = (Parent) fxmlLoader.load();
+        }
         scene.setRoot(root);
-        
+
 
 
     }
-        
-    
+
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }
+
 }

@@ -19,6 +19,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.InputMethodEvent;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import models.Player;
 
@@ -36,9 +38,52 @@ protected boolean player2Flag = true;
     private Label playerSymbol;
     @FXML
     private TextField playerName;
+    @FXML
+    private Button cancel;
+    @FXML
+    private Button next;
     
     @FXML
-    private void handleButtonAction(ActionEvent event) throws IOException {
+    private void maxLengthHandeler(KeyEvent event) {
+        TextField node = (TextField) event.getSource();
+        String name = node.getText();
+        if (name.matches("\\s*")) {
+            next.setDisable(true);
+        }
+        else{
+            next.setDisable(false);
+
+        }
+        if (node.getText().length() > 10) {
+            String s = node.getText().substring(0, 10);
+            node.setText(s);
+
+        }
+    }
+    
+    // cancel button listener
+    @FXML
+    private void handleCancelAction(ActionEvent event) throws IOException {
+        Node node = (Node) event.getSource();
+        Scene scene = node.getScene();
+        Stage stage = (Stage) scene.getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Entry.fxml"));
+        fxmlLoader.setController(new controllers.EntryController());
+        System.out.println(playerName.getText());
+
+        if(!player2Flag && GameData.getMode() == 2) {
+            playerSymbol.setText("×");
+            playerName.setText("");
+            playerLabel.setText("Player 1");
+            player2Flag = true;
+        } else {
+            Parent root = (Parent) fxmlLoader.load();
+            scene.setRoot(root);
+        }
+    }
+    // next button listener
+    @FXML
+    private void handleNextAction(ActionEvent event) throws IOException {
         Node node = (Node) event.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
         Scene scene = stage.getScene();
@@ -51,17 +96,24 @@ protected boolean player2Flag = true;
         if(GameData.getMode() == 1) {
             GameData.player1 = new Player(playerName.getText());
             GameData.player2 = new Player("CPU");
+            fxmlLoader.setController(new controllers.SingleModeController1());
+
             Parent root = (Parent) fxmlLoader.load();
             scene.setRoot(root);
-
         } else if(player2Flag && GameData.getMode() == 2) {
-            playerSymbol.setText("𝖮");
+            playerSymbol.setText("🞅");
             GameData.player1 = new Player(playerName.getText());
             playerName.setText("");
             playerLabel.setText("Player 2");
             player2Flag = false;
         } else if(!player2Flag && GameData.getMode() == 2) {
             GameData.player2 = new Player(playerName.getText());
+            Parent root = (Parent) fxmlLoader.load();
+            scene.setRoot(root);
+        } else if(GameData.getMode() == 3) {
+            GameData.player1 = new Player(playerName.getText());
+            fxmlLoader = new FXMLLoader(getClass().getResource("/views/network.fxml"));
+            fxmlLoader.setController(new controllers.NetworkController());
             Parent root = (Parent) fxmlLoader.load();
             scene.setRoot(root);
         }
