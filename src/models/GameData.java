@@ -23,15 +23,18 @@ public class GameData {
     private static boolean clickArray[][] = {{false,false,false},{false,false,false},{false,false,false}};
     private static ArrayList<String> moves = new ArrayList<String>();
     public static ServerSocket server;
+    public static Socket connectionSocket;
+    public static PrintStream ps;
+    public static DataInputStream dis;
     public static DatagramListener dgListener;
     public static DatagramClient dgClient;
-    
-//    public static DatagramSocket dgserver;
-    public static Socket client;
-//    public static DatagramSocket dgclient;
     public static Thread netListenThread;
-    public static boolean networkChoiceFlag = false;
     public static Thread ipScannerThread;
+    public static Thread networkMainGameThread;
+    public static boolean networkChoiceFlag = false;
+    public static boolean isServer;
+    public static boolean moveAllowance;
+
     
     public static void reset(){
         moveCounter = 1;

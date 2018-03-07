@@ -35,33 +35,29 @@ public class DatagramClient extends Thread {
     }
     
     public void run() {
-//        Thread th = new Thread(() -> {
-//            try {
-//                IpScanner.printReachable(IpScanner.displayInterfaceInformation(), IpScanner.ips);
-//            } catch (SocketException ex) {
-//                Logger.getLogger(DatagramClient.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        });
-//        th.start();
         byte[] sendMessage = new byte[1024];
         sendMessage = new String("hello_XO:" + GameData.player1.name).getBytes();
         // sendMessage = "hello_XO".getBytes();
 
         while (GameData.networkChoiceFlag) {
-            for (String ip : IpScanner.ips) {
+            if(!IpScanner.ips.isEmpty()) {
+//                for (String ip : IpScanner.ips) {
+                    try {
+                        String ip = IpScanner.ips.get(0);
+                        sendPacket = new DatagramPacket(sendMessage, sendMessage.length, InetAddress.getByName(ip), 65432);
+                        IpScanner.ips.remove(IpScanner.ips.indexOf(ip));
+                        clientSocket.send(sendPacket);
+                        System.out.println("client ");
+                    } catch (Exception e) {
+                        System.out.println("exception");
+                    }
+//                }
                 try {
-                    sendPacket = new DatagramPacket(sendMessage, sendMessage.length, InetAddress.getByName(ip), 65432);
-                    IpScanner.ips.remove(IpScanner.ips.indexOf(ip));
-                    clientSocket.send(sendPacket);
-                    System.out.println("client ");
-                } catch (Exception e) {
-                    System.out.println("exception");
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+                    System.out.println("sleep exception");
+//                    Logger.getLogger(DatagramClient.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(DatagramClient.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }

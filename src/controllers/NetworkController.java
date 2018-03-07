@@ -43,99 +43,97 @@ public class NetworkController implements Initializable {
     }
     
     @FXML
-    private void handleCancelAction(ActionEvent event) throws IOException {
+    private void handleCancelAction(ActionEvent event) {
         Node node = (Node) event.getSource();
         Scene scene = node.getScene();
         Stage stage = (Stage) scene.getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/user_info.fxml"));
         fxmlLoader.setController(new controllers.UserInfoController());
-        Parent root = (Parent) fxmlLoader.load();
-        scene.setRoot(root);
+        Parent root;
+        try {
+            root = (Parent) fxmlLoader.load();
+            scene.setRoot(root);
+        } catch (IOException ex) {
+            System.out.println("cann't fetch fxml file");
+//            Logger.getLogger(NetworkController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     @FXML
-    private void handleCreateAction(ActionEvent event) throws IOException {
-        GameData.server = new ServerSocket(65432);
+    private void handleCreateAction(ActionEvent event) {
+        models.GameData.moveAllowance = true;
+        models.GameData.isServer = true;
         models.GameData.networkChoiceFlag = true;
+        try {
+            GameData.server = new ServerSocket(65432);
+        } catch (IOException ex) {
+            System.out.println("cann't create socket");
+//            Logger.getLogger(NetworkController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         GameData.dgListener = new DatagramListener(true, new ArrayList<models.Peer>());
         Thread dgThread = new Thread(GameData.dgListener);
         dgThread.start();
         
         try {
             while(models.GameData.networkChoiceFlag) {
-                Socket s = GameData.server.accept();
-                DataInputStream dis = new DataInputStream(s.getInputStream());
-                Peer peer = new Peer(dis.readLine(), s.getInetAddress());
+                GameData.connectionSocket = GameData.server.accept();
+                GameData.dis = new DataInputStream(GameData.connectionSocket.getInputStream());
+                Peer peer = new Peer(GameData.dis.readLine(), GameData.connectionSocket.getInetAddress());
                 Alert alert = new Alert(AlertType.CONFIRMATION, "player: " + peer.name + " @ " + peer.ip.toString().substring(1) + "wants to connect", ButtonType.NO, ButtonType.OK);
                     Optional<ButtonType> result = alert.showAndWait();
                     if (result.get() == ButtonType.NO) {
-                        s.close();
+                        GameData.dis.close();
+                        GameData.connectionSocket.close();
                     } else {
                         System.out.println("game Start");
                         models.GameData.networkChoiceFlag = false;
+                        GameData.moveAllowance = true;
+                        GameData.ipScannerThread.stop();
+                        GameData.dgListener.stop();
+                        GameData.player2.name = peer.name;
                     }
                 }
-            } catch(Exception e) {}
+            } catch(Exception e) { System.out.println("exception"); }
     }
     
     @FXML
-    private void handleJoinAction(ActionEvent event) throws InterruptedException {
+    private void handleJoinAction(ActionEvent event) {
+        models.GameData.moveAllowance = false;
+        models.GameData.isServer = false;
+        models.GameData.networkChoiceFlag = true;
         try {
             ArrayList<models.Peer> servers = new ArrayList<>();
-//            System.out.println(servers.toString() + "hi");
-//            ArrayList<String> ips = IpScanner.printReachable(IpScanner.displayInterfaceInformation());
-            
-//            for(String ip : ips) {
-//                System.out.println(ip + "\n");
-//            }
 
             GameData.dgListener = new DatagramListener(false, servers);
             GameData.dgListener.start();
             GameData.dgClient = new DatagramClient();
-//            GameData.dgClient = new DatagramClient(ips);
             GameData.dgClient.start();
-            GameData.ipScannerThread = new Thread(() -> {
+            GameData.ipScannerThread = new Thread(new Runnable() {
+                public void run() {
                 try {
                     IpScanner.printReachable(IpScanner.displayInterfaceInformation(), IpScanner.ips);
                 } catch (SocketException ex) {
-                    Logger.getLogger(DatagramClient.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println("no reachable network");
+//                    Logger.getLogger(DatagramClient.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 }
             });
-//            Thread th = new Thread(() -> {
-//                try {
-//                    IpScanner.printReachable(IpScanner.displayInterfaceInformation(), IpScanner.ips);
-//                } catch (SocketException ex) {
-//                    Logger.getLogger(DatagramClient.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//            });
             GameData.ipScannerThread.start();
-//            GameData.dgClient = new DatagramClient(new ArrayList<String>(Arrays.asList(
-//                    "10.118.49.160",
-//                    "10.118.49.27",
-//                    "10.118.49.29")));
-//            servers.add(new models.Peer("a", InetAddress.getByName("10.118.49.160")));
             ObservableList items = FXCollections.observableArrayList();
             do {
-                Thread.sleep(1000);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(NetworkController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             } while(servers.isEmpty());
-            System.out.println("hi");
             for(models.Peer peer : servers) {
-//                System.out.println(peer.name + "hi here 1");
                 items.add(peer.name + " @ " + peer.ip.toString().substring(1));
             }
 //            servers.addAll(Arrays.asList(new models.Peer("a", InetAddress.getByName("10.118.49.160"))));            
             ListView<String> list = new ListView<String>();
             list.setItems(items);
             
-//            list.setCellFactory(param -> new ListCell() {
-//                protected void updateItem(models.Peer peer, boolean empty) {
-//                    super.updateItem(peer, empty);
-//                    if (peer != null) {
-//                        setText(peer.name);
-//                    }
-//                }
-//            });
-
             Dialog dialog = new Dialog();
             dialog.getDialogPane().setContent(list);
             dialog.getDialogPane().getButtonTypes().addAll(new ButtonType("ok", ButtonBar.ButtonData.OK_DONE));
@@ -145,23 +143,31 @@ public class NetworkController implements Initializable {
             
             dialog.setResultConverter(button -> {
                 return list.getSelectionModel().getSelectedItem();
-//                return new Result(list.getSelectionModel().getSelectedItem());
             });
             Optional result = dialog.showAndWait();
-            GameData.networkChoiceFlag = false;
             System.out.println(result.toString());
             result.ifPresent(choice -> {
                 try {
-                    GameData.client = new Socket(choice.toString().substring(choice.toString().lastIndexOf("@") + 1), 65432);
+                    GameData.connectionSocket = new Socket(choice.toString().substring(choice.toString().lastIndexOf("@") + 1), 65432);
                 } catch (IOException ex) {
                     Logger.getLogger(NetworkController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             });
-//            GameData.client = new Socket(, 65432);
-            PrintStream ps = new PrintStream(GameData.client.getOutputStream());
-            System.out.println(GameData.player1.name);
-            ps.println(GameData.player1.name);
-        } catch(IOException e) {}
+            GameData.ps = new PrintStream(GameData.connectionSocket.getOutputStream());
+//            System.out.println(GameData.player1.name);
+            GameData.ps.println(GameData.player1.name);
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/MainGame.fxml"));
+            fxmlLoader.setController(new controllers.NetworkModeController());
+            Parent root = (Parent) fxmlLoader.load();
+            Node node = (Node) event.getSource();
+            Scene scene = node.getScene();
+            GameData.networkChoiceFlag = false;
+            GameData.moveAllowance = false;
+            GameData.ipScannerThread.stop();
+            GameData.dgListener.stop();
+            GameData.dgClient.stop();
+            scene.setRoot(root);
+        } catch(IOException e) { System.out.println("exception"); }
     }
 
     

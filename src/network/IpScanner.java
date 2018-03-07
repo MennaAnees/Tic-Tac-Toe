@@ -37,7 +37,8 @@ public class IpScanner {
                 String mySegment;
                 String ipBase;
 //		ArrayList<String> ips = new ArrayList<String>();
-		mySegment = ipAddress.substring(0, ipAddress.lastIndexOf('.'));
+		try {
+                    mySegment = ipAddress.substring(0, ipAddress.lastIndexOf('.'));
 		System.out.println(mySegment);
 		ipBase = mySegment.substring(0, mySegment.lastIndexOf('.')) + ".";
                 System.out.println(ipBase + ".");
@@ -73,6 +74,9 @@ public class IpScanner {
 			}
                     }
 		}
+                } catch (Exception e) {
+                System.out.println("no reachable network");
+            }
 //		return ips;
 	}
 }
