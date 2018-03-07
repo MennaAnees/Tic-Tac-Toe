@@ -43,6 +43,7 @@ public class GameData {
                 moveArray[i][j] = 10;
                 clickArray[i][j] = false;
                 moves.removeAll(moves);
+                isServer = true;
             }
         }
     }
