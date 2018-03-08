@@ -159,6 +159,7 @@ public class NetworkController implements Initializable {
                 System.out.println("no reachable network");
 //                    Logger.getLogger(DatagramClient.class.getName()).log(Level.SEVERE, null, ex);
             }
+//            servers.addAll(Arrays.asList(new models.Peer("a", InetAddress.getByName("10.118.49.160"))));
             }
         });
         GameData.ipScannerThread.start();

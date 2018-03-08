@@ -56,22 +56,5 @@ public class DataBaseMainupulation {
     
     public void closeConn() throws SQLException{conn.close();}
     
-    public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        DataBaseMainupulation m = new DataBaseMainupulation();
-//        m.insert("aa", "aaaaa", "aaaa", "aaaas");
-    ResultSet rs = m.get();
-     while (rs.next()){
-        int id = rs.getInt("GID");
-        String player1 = rs.getString("player_1");
-        String player2 = rs.getString("player_1");
-        String moves = rs.getString("moves");
-        String winner = rs.getString("winner");
-        Timestamp timestamp = rs.getTimestamp("timestamp");
-//         String email = rs.getString("email");
-//         int roomNum = rs.gtInt("Room_no");
-         System.out.println(id+"aaa"+timestamp+"   "+moves);
-       }
-        
-    }
 
 }

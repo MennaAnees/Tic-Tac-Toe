@@ -73,5 +73,6 @@ public class LocalPlayersController implements Initializable {
         player1label.setText(GameData.player1.name+ ": X");
         player2label.setText(GameData.player2.name+ ": O");
         GameData.reset();
+        GameData.isServer= true;
     }    
 }

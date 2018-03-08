@@ -19,7 +19,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import models.Player;
@@ -47,6 +46,7 @@ protected boolean player2Flag = true;
     private void maxLengthHandeler(KeyEvent event) {
         TextField node = (TextField) event.getSource();
         String name = node.getText();
+
         if (name.matches("\\s*")) {
             next.setDisable(true);
         }
@@ -96,7 +96,8 @@ protected boolean player2Flag = true;
         if(GameData.getMode() == 1) {
             GameData.player1 = new Player(playerName.getText());
             GameData.player2 = new Player("CPU");
-            fxmlLoader.setController(new controllers.SingleModeController1());
+           fxmlLoader = new FXMLLoader(getClass().getResource("/views/single.fxml"));
+            fxmlLoader.setController(new controllers.SingleLevel());
 
             Parent root = (Parent) fxmlLoader.load();
             scene.setRoot(root);
@@ -123,6 +124,8 @@ protected boolean player2Flag = true;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+                next.setDisable(true);
+
     }    
     
 }

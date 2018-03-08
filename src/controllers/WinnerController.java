@@ -62,12 +62,36 @@ public class WinnerController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        System.err.println(winner.name);
+        System.err.println(GameData.player1.name);
+        System.err.println(GameData.player2.name);
+        System.err.println("xxxxxxx"+GameData.isServer);
+        System.err.println("yyyyyyy"+GameData.moveAllowance);
+        System.err.println("zzzzzzz"+GameData.getCounter());
+
         if (winner.name=="noWinner") {
             label.setText("Draw!");
             img.setImage(new Image ("/views/imgs/draw.png"));
         }
         else{
             label.setText(winner.name);
+
+            if (GameData.getMode()==3) {
+                label.setText(GameData.player1.name);
+                if (!winner.name.equals(GameData.player1.name)&&GameData.isServer) {
+                    img.setImage(new Image ("/views/imgs/loser.png"));
+                }   
+                if (!winner.name.equals(GameData.player1.name)&&!GameData.isServer) {
+                    img.setImage(new Image ("/views/imgs/loser.png"));
+                }   
+            }
+            if (GameData.getMode()==1) {
+                label.setText(GameData.player1.name);
+
+                if (!winner.name.equals(GameData.player1.name)) {
+                    img.setImage(new Image ("/views/imgs/loser.png"));
+                }
+            }
         }
     }    
 

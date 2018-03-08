@@ -80,15 +80,11 @@ public class ReplayGameContoller implements Initializable {
         GameData.reset();
         Parent p =  cell00.getParent();
         final Scene scene = stage.getScene();
-//        Stage stage = (Stage) grid.getScene().getWindow();
-//        final Stage stage = (Stage) p.getScene().getWindow();
-//        Stage stage = (Stage) cell00.getScene().getWindow();
-        System.out.println(stage);
         
         final ArrayList<Button> moveButtons = new ArrayList<>();
         for (int i = 0; i < game.moves.size(); i++) {
             String id = "#cell"+game.moves.get(i)[0]+game.moves.get(i)[1];
-            Button btn  =  (Button) p.lookup(id);
+            Button btn = (Button) p.lookup(id);
             moveButtons.add(btn);
         }
 

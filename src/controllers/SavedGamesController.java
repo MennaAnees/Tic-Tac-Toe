@@ -84,10 +84,27 @@ public class SavedGamesController implements Initializable {
         list.setItems(items);
     }    
 
+     
     @FXML
-    private void handleButtonAction(MouseEvent event) {
-    }
+    private void handleButtonAction(MouseEvent event) throws IOException, SQLException {
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        Scene scene = stage.getScene();
+        String id = node.getId();
+        if (id.equals("exit")) {
+            System.exit(0);
+        }
+       
+        else if (id.equals("home")) {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/Entry.fxml"));
+            fxmlLoader.setController(new controllers.EntryController());
+            Parent root = (Parent) fxmlLoader.load();
+            scene.setRoot(root);
 
+        }
+       
+
+    }
     @FXML
     private void handleMouseClick(MouseEvent event) throws IOException {
       

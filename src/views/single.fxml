@@ -23,7 +23,7 @@
                   <Font name="System Bold" size="33.0" />
                </font>
             </Label>
-            <Button id="create" layoutX="233.0" layoutY="200.0" mnemonicParsing="false" onAction="#handleCreateAction" prefHeight="58.0" prefWidth="137.0" style="-fx-background-color: #14BDAC;" text="Create">
+            <Button id="easy" fx:id="easy" cancelButton="true" layoutX="233.0" layoutY="200.0" mnemonicParsing="false" onMouseClicked="#handleButtonAction" prefHeight="58.0" prefWidth="137.0" style="-fx-background-color: #14BDAC;" text="Easy">
                <font>
                   <Font size="25.0" />
                </font>
@@ -31,7 +31,7 @@
                   <Cursor fx:constant="CLOSED_HAND" />
                </cursor>
             </Button>
-            <Button id="join" layoutX="233.0" layoutY="296.0" mnemonicParsing="false" onAction="#handleJoinAction" prefHeight="58.0" prefWidth="137.0" style="-fx-background-color: #14BDAC;" text="Join">
+            <Button id="hard" fx:id="hard" cancelButton="true" layoutX="233.0" layoutY="296.0" mnemonicParsing="false" onMouseClicked="#handleButtonAction" prefHeight="58.0" prefWidth="137.0" style="-fx-background-color: #14BDAC;" text="Medium">
                <font>
                   <Font size="25.0" />
                </font>
@@ -39,7 +39,7 @@
                   <Cursor fx:constant="CLOSED_HAND" />
                </cursor>
             </Button>
-            <Label alignment="CENTER" layoutX="159.0" layoutY="107.0" prefHeight="68.0" prefWidth="286.0" text="Online">
+            <Label alignment="CENTER" layoutX="159.0" layoutY="107.0" prefHeight="68.0" prefWidth="286.0" text="Single mode">
                <font>
                   <Font size="33.0" />
                </font>
