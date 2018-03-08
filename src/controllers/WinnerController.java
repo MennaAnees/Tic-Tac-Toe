@@ -129,7 +129,7 @@ public class WinnerController implements Initializable {
                     Logger.getLogger(WinnerController.class.getName()).log(Level.SEVERE, null, ex);
                 }
                repSend.stop();
-               fxmlLoader.setController(new controllers.NetworkModeController());               
+               fxmlLoader.setController(new controllers.NetworkModeController(stage));               
            }
            
             

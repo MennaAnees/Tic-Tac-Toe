@@ -51,11 +51,7 @@ public class SingleLevel implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        models.GameData.networkChoiceFlag = true;
-        fxmlLoaderMain = new FXMLLoader(getClass().getResource("/views/MainGame.fxml"));
-        fxmlLoaderMain.setController(new controllers.NetworkModeController());
-        fxmlLoaderUser = new FXMLLoader(getClass().getResource("/views/user_into.fxml"));
-        fxmlLoaderUser.setController(new controllers.UserInfoController());
+        
     }
     
    

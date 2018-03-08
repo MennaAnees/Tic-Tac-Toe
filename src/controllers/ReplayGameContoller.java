@@ -75,8 +75,8 @@ public class ReplayGameContoller implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        player1label.setText(game.player1+ ": X");
-        player2label.setText(game.player2+ ": O");
+        player1label.setText(game.player1+ ": ×");
+        player2label.setText(game.player2+ ": 🞅");
         GameData.reset();
         Parent p =  cell00.getParent();
         final Scene scene = stage.getScene();
@@ -96,10 +96,10 @@ public class ReplayGameContoller implements Initializable {
                     final  Button currentBtn = moveButtons.get(i);
                     final int j = i;
                     Platform.runLater(()->{
-                        currentBtn.setText("X");
+                        currentBtn.setText("×");
                     if(j % 2 != 0){
                         currentBtn.setTextFill(javafx.scene.paint.Color.WHITE);
-                        currentBtn.setText("O");
+                        currentBtn.setText("🞅");
                     }
                     });
                     try {

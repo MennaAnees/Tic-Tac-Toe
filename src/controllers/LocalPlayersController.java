@@ -70,8 +70,8 @@ public class LocalPlayersController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        player1label.setText(GameData.player1.name+ ": X");
-        player2label.setText(GameData.player2.name+ ": O");
+        player1label.setText(GameData.player1.name+ ": ×");
+        player2label.setText(GameData.player2.name+ ": 🞅");
         GameData.reset();
         GameData.isServer= true;
     }    
