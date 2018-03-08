@@ -31,7 +31,7 @@
                   <Cursor fx:constant="CLOSED_HAND" />
                </cursor>
             </Button>
-            <Button id="hard" fx:id="hard" cancelButton="true" layoutX="233.0" layoutY="296.0" mnemonicParsing="false" onMouseClicked="#handleButtonAction" prefHeight="58.0" prefWidth="137.0" style="-fx-background-color: #14BDAC;" text="Hard">
+            <Button id="hard" fx:id="hard" cancelButton="true" layoutX="233.0" layoutY="296.0" mnemonicParsing="false" onMouseClicked="#handleButtonAction" prefHeight="58.0" prefWidth="137.0" style="-fx-background-color: #14BDAC;" text="Medium">
                <font>
                   <Font size="25.0" />
                </font>
