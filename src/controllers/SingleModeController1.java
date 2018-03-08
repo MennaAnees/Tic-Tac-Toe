@@ -66,8 +66,8 @@ public class SingleModeController1 implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        player1label.setText(GameData.player1.name+ ": X");
-        player2label.setText(GameData.player2.name+ ": O");
+        player1label.setText(GameData.player1.name+ ": ×");
+        player2label.setText(GameData.player2.name+ ": 🞅");
         GameData.reset();
         GameData.isServer = true;
 
@@ -89,11 +89,11 @@ public class SingleModeController1 implements Initializable {
             GameData.setClickArray(xPos, yPos);
             if(GameData.getCounter() % 2 == 0){
                 cell.setTextFill(javafx.scene.paint.Color.WHITE);
-                cell.setText("O");
+                cell.setText("🞅");
                 GameData.setMoveArray(xPos, yPos, 1);
             }
             else{
-                cell.setText("X");
+                cell.setText("×");
                 GameData.setMoveArray(xPos, yPos, 2);
             }
             GameData.incCounter();

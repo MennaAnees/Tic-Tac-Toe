@@ -64,7 +64,7 @@ public class NetworkController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         models.GameData.networkChoiceFlag = true;
         fxmlLoaderMain = new FXMLLoader(getClass().getResource("/views/MainGame.fxml"));
-        fxmlLoaderMain.setController(new controllers.NetworkModeController());
+        
         fxmlLoaderUser = new FXMLLoader(getClass().getResource("/views/user_into.fxml"));
         fxmlLoaderUser.setController(new controllers.UserInfoController());
     }
@@ -92,6 +92,10 @@ public class NetworkController implements Initializable {
         Button join = (Button) create.getParent().lookup("#join");
         System.out.println(join);
         join.setDisable(true);
+        Node node = (Node) event.getSource();
+        Scene scene = node.getScene();
+        Stage stage = (Stage) scene.getWindow();
+        fxmlLoaderMain.setController(new controllers.NetworkModeController(stage));
         models.GameData.moveAllowance = true;
         models.GameData.isServer = true;
         try {
@@ -109,7 +113,7 @@ public class NetworkController implements Initializable {
                 System.out.println("omran");
                 GameData.dis = new DataInputStream(GameData.connectionSocket.getInputStream());
                 Peer peer = new Peer(GameData.dis.readLine(), GameData.connectionSocket.getInetAddress());
-                Alert alert = new Alert(AlertType.CONFIRMATION, "player: " + peer.name + " @ " + peer.ip.toString().substring(1) + "wants to connect", ButtonType.NO, ButtonType.OK);
+                Alert alert = new Alert(AlertType.CONFIRMATION, "player: " + peer.name + " @ " + peer.ip.toString().substring(1) + " wants to connect", ButtonType.NO, ButtonType.OK);
                     Optional<ButtonType> result = alert.showAndWait();
                     if (result.get() == ButtonType.NO) {
                         GameData.dis.close();
@@ -123,13 +127,11 @@ public class NetworkController implements Initializable {
                         GameData.ps = new PrintStream(GameData.connectionSocket.getOutputStream());
 //            System.out.println(GameData.player1.name);
 //                        GameData.ps.println(GameData.player1.name);
-                        Node node = (Node) event.getSource();
-                        Scene scene = node.getScene();
                         GameData.networkChoiceFlag = false;
                         GameData.moveAllowance = true;
                         GameData.ps.println("start");  // 2nd 1st
                         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/MainGame.fxml"));
-                        fxmlLoader.setController(new controllers.NetworkModeController());
+                        fxmlLoader.setController(new controllers.NetworkModeController(stage));
                         Parent root = (Parent) fxmlLoader.load();
                         scene.setRoot(root);
                     }
@@ -143,6 +145,10 @@ public class NetworkController implements Initializable {
         join.setDisable(true);
         Button create = (Button) join.getParent().lookup("#create");
         create.setDisable(true);
+        Node node = (Node) event.getSource();
+        Scene scene = node.getScene();
+        Stage stage = (Stage) scene.getWindow();
+        fxmlLoaderMain.setController(new controllers.NetworkModeController(stage));
         models.GameData.moveAllowance = false;
         models.GameData.isServer = false;
         ArrayList<models.Peer> servers = new ArrayList<>();
@@ -164,6 +170,8 @@ public class NetworkController implements Initializable {
         });
         GameData.ipScannerThread.start();
         ObservableList items = FXCollections.observableArrayList();
+        ListView<String> list = new ListView<String>();
+        list.setItems(items);
         Thread blockIngTh = new Thread(() -> {
                 while(servers.isEmpty()) {
                    try {
@@ -175,9 +183,7 @@ public class NetworkController implements Initializable {
                 for(models.Peer peer : servers) {
                     items.add(peer.name + " @ " + peer.ip.toString().substring(1));
                 }
-    //            servers.addAll(Arrays.asList(new models.Peer("a", InetAddress.getByName("10.118.49.160"))));            
-                ListView<String> list = new ListView<String>();
-                list.setItems(items);
+    //            servers.addAll(Arrays.asList(new models.Peer("a", InetAddress.getByName("10.118.49.160"))));
                 
                     Platform.runLater(() -> {
                         Dialog dialog = new Dialog();
@@ -221,8 +227,6 @@ public class NetworkController implements Initializable {
                                         if (msg.indexOf("start") == 0) {
                                             System.out.println(msg + "zzz");
                                             Parent root = (Parent) fxmlLoaderMain.load();
-                                            Node node = (Node) event.getSource();
-                                            Scene scene = node.getScene();
                                             GameData.networkChoiceFlag = false;
                                             scene.setRoot(root);
                                         }
