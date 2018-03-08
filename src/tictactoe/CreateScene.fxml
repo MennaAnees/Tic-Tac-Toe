@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="752.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+    <stylesheets>
+        <URL value="@Style.css" />
+    </stylesheets>
+   <children>
+      <Label layoutX="31.0" layoutY="172.0" text="Enter Your Name:">
+         <font>
+            <Font name="FreeSans Bold" size="17.0" />
+         </font>
+      </Label>
+      <JFXTextField layoutX="188.0" layoutY="170.0" />
+      <Label layoutX="31.0" layoutY="265.0" text="Your IP Address is:">
+         <font>
+            <Font name="FreeSans Bold" size="17.0" />
+         </font>
+      </Label>
+      <JFXTextField layoutX="204.0" layoutY="263.0" />
+      <Label layoutX="31.0" layoutY="345.0" text="Port:">
+         <font>
+            <Font name="FreeSans Bold" size="17.0" />
+         </font>
+      </Label>
+      <JFXTextField layoutX="77.0" layoutY="343.0" />
+      <JFXButton id="CreateBtn" layoutX="289.0" layoutY="451.0" prefHeight="52.0" prefWidth="172.0" text="Create" textFill="#146e4f">
+         <font>
+            <Font name="FreeSans Bold" size="26.0" />
+         </font>
+      </JFXButton>
+      <Label layoutX="204.0" layoutY="24.0" prefHeight="61.0" prefWidth="355.0" text="Tic Tac Toe..." textFill="#fff90d">
+         <font>
+            <Font name="SansSerif Bold Italic" size="47.0" />
+         </font>
+      </Label>
+      <JFXButton layoutX="22.0" layoutY="24.0" prefHeight="38.0" prefWidth="97.0" text="Back" textFill="#146e4f">
+         <font>
+            <Font name="FreeSans Bold Oblique" size="22.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>
