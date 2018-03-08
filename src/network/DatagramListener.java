@@ -3,6 +3,11 @@ package network;
 import java.io.*;
 import java.net.*;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import models.GameData;
 import models.Peer;
 
@@ -38,10 +43,28 @@ public class DatagramListener extends Thread {
     }
     
     public void run() {
-        try {
             while(GameData.networkChoiceFlag) {
                 System.out.println("listening");
-                listenerSocket.receive(receivePacket);
+                try {
+                    listenerSocket.receive(receivePacket);
+                } catch (IOException ex) {
+                    Platform.runLater(() -> {
+                        Alert alert = new Alert(Alert.AlertType.ERROR, "You are disconnected!", ButtonType.CLOSE);
+                        Optional<ButtonType> result = alert.showAndWait();
+                        if (result.get() == ButtonType.NO) {
+                            try {
+                                GameData.dgListener.stop();
+                                if (GameData.isServer) {
+                                    GameData.netListenThread.stop();
+                                } else {
+                                    GameData.dgClient.stop();
+                                }
+                            } catch (Exception e) {
+                            }
+                        }
+                    });
+                    Logger.getLogger(DatagramListener.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 String message = new String(receivePacket.getData());
                 System.out.println(message);
                 if(message.indexOf("hello_XO:") == 0) {
@@ -50,17 +73,50 @@ public class DatagramListener extends Thread {
                     if(isServer) {
                         System.out.println("hi there");
                         System.out.println(receivePacket.getAddress().toString());
-                    	sendMessage("I am server:" + GameData.player1.name, receivePacket.getAddress().toString().substring(1), 65431);
+                        try {
+                            sendMessage("I am server:" + GameData.player1.name, receivePacket.getAddress().toString().substring(1), 65431);
+                        } catch (IOException ex) {
+                            Platform.runLater(() -> {
+                                Alert alert = new Alert(Alert.AlertType.ERROR, "You are disconnected!", ButtonType.CLOSE);
+                                Optional<ButtonType> result = alert.showAndWait();
+                                if (result.get() == ButtonType.NO) {
+                                    try {
+                                        GameData.dgListener.stop();
+                                        if (GameData.isServer) {
+                                            GameData.netListenThread.stop();
+                                        } else {
+                                            GameData.dgClient.stop();
+                                        }
+                                    } catch (Exception e) {
+                                    }
+                                }
+                            });
+                            Logger.getLogger(DatagramListener.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
                 } else if(message.indexOf("I am server:") == 0 && isServer == false) {
                     System.out.println("server added");
                     this.servers.add(new models.Peer(message.substring(12), receivePacket.getAddress()));
                     System.out.println(message.substring(12) + receivePacket.getAddress().toString());
+                } else {
+                    Platform.runLater(() -> {
+                        Alert alert = new Alert(Alert.AlertType.ERROR, "You are disconnected!", ButtonType.CLOSE);
+                        Optional<ButtonType> result = alert.showAndWait();
+                        if (result.get() == ButtonType.NO) {
+                            try {
+                                GameData.dgListener.stop();
+                                if(GameData.isServer) {
+                                    GameData.netListenThread.stop();
+                                } else {
+                                    GameData.dgClient.stop();
+                                }
+                            } catch(Exception e) {}
+                        }
+                    });
                 }
                 	
                 System.out.println(message.substring(12));
 //                Thread.sleep(1000);
             }
-        } catch(Exception e) {}
     }
 }

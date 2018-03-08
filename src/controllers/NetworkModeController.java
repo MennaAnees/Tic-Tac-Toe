@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,7 +24,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import models.GameData;
@@ -81,7 +84,21 @@ public class NetworkModeController implements Initializable {
                 try {
                     String move = GameData.dis.readLine();
                     System.out.println(move);
-                    System.out.println("#cell" + move.substring(0, 1) + move.substring(1, 2));
+                    try {
+                        System.out.println("#cell" + move.substring(0, 1) + move.substring(1, 2));
+
+                    } catch(Exception e) {
+                        Platform.runLater(() -> {
+                            Alert alert = new Alert(Alert.AlertType.ERROR, "You are disconnected!", ButtonType.CLOSE);
+                            Optional<ButtonType> result = alert.showAndWait();
+                            if (result.get() == ButtonType.NO) {
+                                try {
+                                    GameData.networkMainGameThread.stop();
+                                } catch (Exception ex) {
+                                }
+                            }
+                        });
+                    }
                     final Button cell = (Button) cell00.getParent().lookup("#cell" + move);
                     System.out.println(cell);
                     int xPos = Character.getNumericValue(cell.getId().charAt(4));
@@ -113,6 +130,16 @@ public class NetworkModeController implements Initializable {
                         scene.setRoot(root);
                     }
                 } catch (IOException ex) {
+                    Platform.runLater(() -> {
+                        Alert alert = new Alert(Alert.AlertType.ERROR, "can't connect now!", ButtonType.CLOSE);
+                        Optional<ButtonType> result = alert.showAndWait();
+                        if (result.get() == ButtonType.NO) {
+                            try {
+                                GameData.networkMainGameThread.stop();
+                            } catch (Exception e) {
+                            }
+                        }
+                    });
                     System.out.println("can't connect now");
     //                Logger.getLogger(NetworkModeController.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -123,7 +150,7 @@ public class NetworkModeController implements Initializable {
     }    
 
     @FXML
-    private void handleButtonAction(ActionEvent event) throws IOException {
+    private void handleButtonAction(ActionEvent event) {
 //        System.out.println("hi game");
         Node node = (Node) event.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
@@ -156,8 +183,21 @@ public class NetworkModeController implements Initializable {
             if (winner != null) {
                 GameData.networkMainGameThread.stop();
                 fxmlLoader.setController(new controllers.WinnerController(winner));
-                Parent root = (Parent) fxmlLoader.load();
-                scene.setRoot(root);
+                Parent root;
+                try {
+                    root = (Parent) fxmlLoader.load();
+                    scene.setRoot(root);
+                } catch (IOException ex) {
+                    Platform.runLater(() -> {
+                        Alert alert = new Alert(Alert.AlertType.ERROR, "Something went wrong!", ButtonType.CLOSE);
+                        Optional<ButtonType> result = alert.showAndWait();
+                        if (result.get() == ButtonType.NO) {
+                            GameData.networkMainGameThread.stop();
+                        }
+                    });
+                    System.out.println("loader exception");
+                    Logger.getLogger(NetworkModeController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
         

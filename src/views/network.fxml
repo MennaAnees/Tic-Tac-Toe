@@ -23,12 +23,12 @@
                   <Font name="System Bold" size="33.0" />
                </font>
             </Label>
-            <Button id="create" cancelButton="true" layoutX="233.0" layoutY="200.0" mnemonicParsing="false" onAction="#handleCreateAction" prefHeight="58.0" prefWidth="137.0" style="-fx-background-color: #14BDAC;" text="Create">
+            <Button id="create" layoutX="233.0" layoutY="200.0" mnemonicParsing="false" onAction="#handleCreateAction" prefHeight="58.0" prefWidth="137.0" style="-fx-background-color: #14BDAC;" text="Create">
                <font>
                   <Font size="25.0" />
                </font>
             </Button>
-            <Button id="join" cancelButton="true" layoutX="233.0" layoutY="296.0" mnemonicParsing="false" onAction="#handleJoinAction" prefHeight="58.0" prefWidth="137.0" style="-fx-background-color: #14BDAC;" text="Join">
+            <Button id="join" layoutX="233.0" layoutY="296.0" mnemonicParsing="false" onAction="#handleJoinAction" prefHeight="58.0" prefWidth="137.0" style="-fx-background-color: #14BDAC;" text="Join">
                <font>
                   <Font size="25.0" />
                </font>
